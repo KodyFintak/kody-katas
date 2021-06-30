@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31321.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KodyKataTests", "KodyKataTests\KodyKataTests.csproj", "{DE621053-A960-40B9-BFB9-9CAB4C1C997D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KodyKata", "KodyKata\KodyKata.csproj", "{72601EC3-643A-4611-813B-8DAE9AF56CE3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DE621053-A960-40B9-BFB9-9CAB4C1C997D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE621053-A960-40B9-BFB9-9CAB4C1C997D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE621053-A960-40B9-BFB9-9CAB4C1C997D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE621053-A960-40B9-BFB9-9CAB4C1C997D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72601EC3-643A-4611-813B-8DAE9AF56CE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72601EC3-643A-4611-813B-8DAE9AF56CE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72601EC3-643A-4611-813B-8DAE9AF56CE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72601EC3-643A-4611-813B-8DAE9AF56CE3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E6404D56-0FEC-43F3-9919-B0D11F202291}
+	EndGlobalSection
+EndGlobal

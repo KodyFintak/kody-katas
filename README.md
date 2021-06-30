@@ -1,8 +1,9 @@
-# kody-katas
-repo for writing katas
+# kody katas - C#
+This is a C# branch for doing Code Katas.
 
-### Getting Started
-1. Take a look at the branches in the repo to find the language you want (or make a new one if that branch doesn't exist)
-1. Create a new branch based on the language branch for the kata you want to practice
-1. Once done with the kata, delete your kata branch
+### How to run the tests
+This is setup with xUnit so you run the tests via your IDE or you can run the following command on the command line
 
+```shell
+dotnet test
+```
