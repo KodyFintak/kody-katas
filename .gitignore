@@ -8,6 +8,9 @@ lib-cov
 *.gz
 *.swp
 
+src/*.js
+tests/*.js
+
 .vscode
 
 pids
