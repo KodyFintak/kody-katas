@@ -6,3 +6,10 @@ repo for writing katas
 1. Create a new branch based on the language branch for the kata you want to practice
 1. Once done with the kata, delete your kata branch
 
+
+### Running the tests
+This is a npm package with mocha + chai, so run the following command to run the tests
+
+```sh
+npm test 
+```
