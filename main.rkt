@@ -25,6 +25,9 @@
 
 ;; Code here
 
+(define (my-+ a b)
+  (+ a b)
+)
 
 
 (module+ test
@@ -32,7 +35,7 @@
   ;; or with `raco test`. The code here does not run when this file is
   ;; required by another module.
 
-  (check-equal? (+ 2 2) 4))
+  (check-equal? (my-+ 2 2) 4))
 
 (module+ main
   ;; (Optional) main submodule. Put code here if you need it to be executed when
