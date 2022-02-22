@@ -103,18 +103,90 @@ public class FizzBuzzTest {
     }
 
     private String calculateFizzBuzz(int input) {
-        if (input % 15 == 0) {
-            return "fizzbuzz";
-        }
-
-        if (input % 5 == 0) {
-            return "buzz";
-        }
-
-        if (input % 3 == 0) {
-            return "fizz";
-        }
-
-        return String.valueOf(input);
+        ChainLink chain = createChain();
+        return chain.evaluate(input).toString();
     }
+
+    private ChainLinkMod createChain() {
+        return new ChainLinkMod(new FizzBuzzStrategy(), new ChainLinkMod(new BuzzStrategy(), new ChainLinkMod(new FizzStrategy(), new ChainLinkString())));
+    }
+
+    class ChainLinkMod implements ChainLink {
+        private Strategy strategy;
+        private ChainLink nextLink;
+
+        public ChainLinkMod(Strategy strategy, ChainLink nextLink) {
+            this.strategy = strategy;
+            this.nextLink = nextLink;
+        }
+
+        public Return evaluate(int input) {
+            if (strategy.isMatch(input)) {
+                return strategy.toReturn();
+            }
+
+            return nextLink.evaluate(input);
+        }
+    }
+
+    class Return {
+        private String value;
+
+        public Return(String value){
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+    }
+
+    class ChainLinkString implements ChainLink {
+        public Return evaluate(int input) {
+            return new Return(String.valueOf(input));
+        }
+    }
+
+    class FizzStrategy implements Strategy {
+        public boolean isMatch(int input) {
+            return input % 3 == 0;
+        }
+        public Return toReturn() {
+            return new Return("fizz");
+        }
+    }
+
+    class BuzzStrategy implements Strategy {
+        public boolean isMatch(int input) {
+            return input % 5 == 0;
+        }
+        public Return toReturn() {
+            return new Return("buzz");
+        }
+    }
+
+    class FizzBuzzStrategy implements Strategy {
+        public boolean isMatch(int input) {
+            return input % 15 == 0;
+        }
+        public Return toReturn() {
+            return new Return("fizzbuzz");
+        }
+    }
+
+//    private String og(int input) {
+//        if (input % 15 == 0) {
+//            return "fizzbuzz";
+//        }
+//
+//        if (input % 5 == 0) {
+//            return "buzz";
+//        }
+//
+//        if (input % 3 == 0) {
+//            return "fizz";
+//        }
+//
+//        return String.valueOf(input);
+//    }
 }
