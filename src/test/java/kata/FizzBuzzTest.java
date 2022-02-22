@@ -103,12 +103,14 @@ public class FizzBuzzTest {
     }
 
     private String calculateFizzBuzz(int input) {
-        ChainLink chain = createChain();
-        return chain.evaluate(input).toString();
+        return createChain().evaluate(input).toString();
     }
 
     private ChainLinkMod createChain() {
-        return new ChainLinkMod(new FizzBuzzStrategy(), new ChainLinkMod(new BuzzStrategy(), new ChainLinkMod(new FizzStrategy(), new ChainLinkString())));
+        return new ChainLinkMod(new FizzBuzzStrategy(),
+                new ChainLinkMod(new BuzzStrategy(),
+                        new ChainLinkMod(new FizzStrategy(),
+                                new ChainLinkString())));
     }
 
     class ChainLinkMod implements ChainLink {
@@ -121,11 +123,7 @@ public class FizzBuzzTest {
         }
 
         public Return evaluate(int input) {
-            if (strategy.isMatch(input)) {
-                return strategy.toReturn();
-            }
-
-            return nextLink.evaluate(input);
+            return strategy.isMatch(input) ? strategy.toReturn() : nextLink.evaluate(input);
         }
     }
 
