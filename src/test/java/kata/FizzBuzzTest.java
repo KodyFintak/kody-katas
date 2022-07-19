@@ -1,105 +1,120 @@
 package kata;
 
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FizzBuzzTest {
 
-    @Test
-    public void shouldIntOfOneReturnsStringOne() {
-        // arrange.
-        int input = 1;
+    @Nested
+    class StringOfNumber {
+        @Test
+        public void intOfOneReturnsStringOne() {
+            // arrange.
+            int input = 1;
 
-        // act.
-        String result = calculateFizzBuzz(input);
+            // act.
+            String result = calculateFizzBuzz(input);
 
-        // assert
-        assertEquals("1", result);
+            // assert
+            assertEquals("1", result);
+        }
+
+        @Test
+        public void returnsStringOfGivenInt() {
+            // arrange.
+            int input = 2;
+
+            // act.
+            String result = calculateFizzBuzz(input);
+
+            // assert
+            assertEquals("2", result);
+        }
     }
 
-    @Test
-    public void shouldReturnStringOfGivenInt() {
-        // arrange.
-        int input = 2;
+    @Nested
+    class Fizz {
+        @Test
+        public void returnsFizzForInt3() {
+            // arrange.
+            int input = 3;
 
-        // act.
-        String result = calculateFizzBuzz(input);
+            // act.
+            String result = calculateFizzBuzz(input);
 
-        // assert
-        assertEquals("2", result);
+            // assert
+            assertEquals("fizz", result);
+        }
+
+        @Test
+        public void returnsFizzForAnyMultipleOf3() {
+            // arrange.
+            int input = 6;
+
+            // act.
+            String result = calculateFizzBuzz(input);
+
+            // assert
+            assertEquals("fizz", result);
+        }
+
     }
 
-    @Test
-    public void shouldReturnFizzForInt3() {
-        // arrange.
-        int input = 3;
+    @Nested
+    class Buzz {
+        @Test
+        public void returnsBuzzForInt5() {
+            // arrange.
+            int input = 5;
 
-        // act.
-        String result = calculateFizzBuzz(input);
+            // act.
+            String result = calculateFizzBuzz(input);
 
-        // assert
-        assertEquals("fizz", result);
+            // assert
+            assertEquals("buzz", result);
+        }
+
+        @Test
+        public void returnsBuzzForAnyMultipleOf5() {
+            // arrange.
+            int input = 10;
+
+            // act.
+            String result = calculateFizzBuzz(input);
+
+            // assert
+            assertEquals("buzz", result);
+        }
     }
 
-    @Test
-    public void shouldReturnFizzForAnyMultipleOf3() {
-        // arrange.
-        int input = 6;
 
-        // act.
-        String result = calculateFizzBuzz(input);
+    @Nested
+    class FizzBuzz {
+        @Test
+        public void returnsFizzBuzzForInt15() {
+            // arrange.
+            int input = 15;
 
-        // assert
-        assertEquals("fizz", result);
-    }
+            // act.
+            String result = calculateFizzBuzz(input);
 
-    @Test
-    public void shouldReturnBuzzForInt5() {
-        // arrange.
-        int input = 5;
+            // assert
+            assertEquals("fizzbuzz", result);
+        }
 
-        // act.
-        String result = calculateFizzBuzz(input);
+        @Test
+        public void returnsFizzBuzzForAnyMultipleOf3And5() {
+            // arrange.
+            int input = 30;
 
-        // assert
-        assertEquals("buzz", result);
-    }
+            // act.
+            String result = calculateFizzBuzz(input);
 
-    @Test
-    public void shouldReturnBuzzForAnyMultipleOf5() {
-        // arrange.
-        int input = 10;
-
-        // act.
-        String result = calculateFizzBuzz(input);
-
-        // assert
-        assertEquals("buzz", result);
-    }
-
-    @Test
-    public void shouldReturnFizzBuzzForInt15() {
-        // arrange.
-        int input = 15;
-
-        // act.
-        String result = calculateFizzBuzz(input);
-
-        // assert
-        assertEquals("fizzbuzz", result);
-    }
-
-    @Test
-    public void shouldReturnFizzBuzzForAnyMultipleOf3And5() {
-        // arrange.
-        int input = 30;
-
-        // act.
-        String result = calculateFizzBuzz(input);
-
-        // assert
-        assertEquals("fizzbuzz", result);
+            // assert
+            assertEquals("fizzbuzz", result);
+        }
     }
 
     private String calculateFizzBuzz(int input) {
@@ -130,7 +145,7 @@ public class FizzBuzzTest {
     class Return {
         private String value;
 
-        public Return(String value){
+        public Return(String value) {
             this.value = value;
         }
 
@@ -149,6 +164,7 @@ public class FizzBuzzTest {
         public boolean isMatch(int input) {
             return input % 3 == 0;
         }
+
         public Return toReturn() {
             return new Return("fizz");
         }
@@ -158,6 +174,7 @@ public class FizzBuzzTest {
         public boolean isMatch(int input) {
             return input % 5 == 0;
         }
+
         public Return toReturn() {
             return new Return("buzz");
         }
@@ -167,6 +184,7 @@ public class FizzBuzzTest {
         public boolean isMatch(int input) {
             return input % 15 == 0;
         }
+
         public Return toReturn() {
             return new Return("fizzbuzz");
         }
