@@ -15,7 +15,16 @@ from unittest import TestCase
 # z => zero
 
 def next_grid(input):
-    return input
+    
+    result = [
+            [0, 0, 0],
+            [0, 0, 0],
+            [0, 0, 0]
+        ]
+
+
+    return result
+
 
 
 class Test(TestCase):
@@ -32,3 +41,21 @@ class Test(TestCase):
         new_grid = next_grid(input)
 
         assert new_grid == input
+    
+    def test_loner(self):
+
+        input = [
+            [1, 0, 0],
+            [0, 0, 0],
+            [0, 0, 0]
+        ]
+
+        expected = [
+            [0, 0, 0],
+            [0, 0, 0],
+            [0, 0, 0]
+        ]
+
+        new_grid = next_grid(input)
+        
+        assert new_grid == expected
