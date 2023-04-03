@@ -23,11 +23,12 @@ def next_grid(input):
     
     result = []
 
-    for row in input:
-        
+    for k in range(len(input)):
+        row = input[k]
         new_row = []
 
-        for cell in row:
+        for i in range(len(row)):
+            cell = row[i]
             new_row.append(0)
 
         result.append(new_row)
@@ -36,6 +37,7 @@ def next_grid(input):
 
 
 class Test(TestCase):
+
     def test_first(self):
         value = [
             [0, 0, 0],
@@ -44,9 +46,8 @@ class Test(TestCase):
         ]
 
         new_grid = next_grid(value)
+        self.assertEqual(new_grid, value)
 
-        assert new_grid == value
-    
     def test_loner(self):
 
         value = [
@@ -63,7 +64,7 @@ class Test(TestCase):
 
         new_grid = next_grid(value)
         
-        assert new_grid == expected
+        self.assertEqual(new_grid, expected)
 
     def test_make_matrix_dead(self):
 
@@ -83,5 +84,5 @@ class Test(TestCase):
 
         new_grid = next_grid(value)
         
-        assert new_grid == expected
+        self.assertEqual(new_grid, expected)
 
