@@ -1,0 +1,5 @@
+_build/*
+.idea/*
+.eggs/*
+dist/
+kody_katas.egg-info/
