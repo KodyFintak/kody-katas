@@ -36,23 +36,20 @@ def next_grid(input):
 
 
 class Test(TestCase):
-    def test_hello(self):
-        assert 1 == 1
-
     def test_first(self):
-        input = [
+        value = [
             [0, 0, 0],
             [0, 0, 0],
             [0, 0, 0]
         ]
 
-        new_grid = next_grid(input)
+        new_grid = next_grid(value)
 
-        assert new_grid == input
+        assert new_grid == value
     
     def test_loner(self):
 
-        input = [
+        value = [
             [1, 0, 0],
             [0, 0, 0],
             [0, 0, 0]
@@ -64,13 +61,13 @@ class Test(TestCase):
             [0, 0, 0]
         ]
 
-        new_grid = next_grid(input)
+        new_grid = next_grid(value)
         
         assert new_grid == expected
 
     def test_make_matrix_dead(self):
 
-        input = [
+        value = [
             [1, 0, 0, 0],
             [0, 0, 0, 0],
             [0, 0, 0, 0],
@@ -84,6 +81,7 @@ class Test(TestCase):
             [0, 0, 0, 0]
         ]
 
-        new_grid = next_grid(input)
+        new_grid = next_grid(value)
         
         assert new_grid == expected
+
