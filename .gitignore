@@ -3,3 +3,4 @@ _build/*
 .eggs/*
 dist/
 kody_katas.egg-info/
+__pycache__
