@@ -14,17 +14,25 @@ from unittest import TestCase
 # z o m b i e s
 # z => zero
 
+#    1. Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
+#    2. Any live cell with more than three live neighbours dies, as if by overcrowding.
+#    3. Any live cell with two or three live neighbours lives on to the next generation.
+#    4. Any dead cell with exactly three live neighbours becomes a live cell.
+
 def next_grid(input):
     
-    result = [
-            [0, 0, 0],
-            [0, 0, 0],
-            [0, 0, 0]
-        ]
+    result = []
 
+    for row in input:
+        
+        new_row = []
 
+        for cell in row:
+            new_row.append(0)
+
+        result.append(new_row)
+    
     return result
-
 
 
 class Test(TestCase):
@@ -54,6 +62,26 @@ class Test(TestCase):
             [0, 0, 0],
             [0, 0, 0],
             [0, 0, 0]
+        ]
+
+        new_grid = next_grid(input)
+        
+        assert new_grid == expected
+
+    def test_make_matrix_dead(self):
+
+        input = [
+            [1, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ]
+
+        expected = [
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
         ]
 
         new_grid = next_grid(input)
