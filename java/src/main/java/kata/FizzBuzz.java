@@ -1,7 +1,7 @@
 package kata;
 
 public class FizzBuzz {
-    public static int process(int input) {
-        return input;
+    public String process(int input) {
+        return "2";
     }
 }

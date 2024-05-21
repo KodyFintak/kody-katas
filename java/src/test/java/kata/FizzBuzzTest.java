@@ -8,6 +8,7 @@ public class FizzBuzzTest {
 
     @Test
     public void shouldProcess() {
-        assertEquals(2, FizzBuzz.process(2));
+        FizzBuzz fizzBuzz = new FizzBuzz();
+        assertEquals("2", fizzBuzz.process(2));
     }
 }
