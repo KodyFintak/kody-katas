@@ -4,10 +4,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CalculatorTest {
+public class FizzBuzzTest {
 
     @Test
     public void shouldAdd() {
-        assertEquals(4, Calculator.add(2, 2));
+        assertEquals(4, FizzBuzz.add(2, 2));
     }
 }
