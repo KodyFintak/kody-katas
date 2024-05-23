@@ -23,5 +23,9 @@ public class FizzBuzzTest {
         FizzBuzz fizzBuzz = new FizzBuzz();
         assertEquals("fizz",fizzBuzz.process(3));
     }
-
+@Test
+    void shouldReturnFizzForInt6() {
+        FizzBuzz fizzBuzz = new FizzBuzz();
+        assertEquals("fizz",fizzBuzz.process(6));
+    }
 }
