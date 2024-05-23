@@ -11,4 +11,10 @@ public class FizzBuzzTest {
         FizzBuzz fizzBuzz = new FizzBuzz();
         assertEquals("2", fizzBuzz.process(2));
     }
+
+    @Test
+    void shouldReturn1for1() {
+        FizzBuzz fizzBuzz = new FizzBuzz();
+        assertEquals("1",fizzBuzz.process(1));
+    }
 }
