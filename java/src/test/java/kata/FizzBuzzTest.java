@@ -18,4 +18,10 @@ public class FizzBuzzTest {
         assertEquals("1",fizzBuzz.process(1));
     }
 
+    @Test
+    void shouldReturnFizzForInt3() {
+        FizzBuzz fizzBuzz = new FizzBuzz();
+        assertEquals("fizz",fizzBuzz.process(3));
+    }
+
 }
