@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class FizzBuzzTest {
 
     @Test
-    public void shouldProcess() {
+    public void shouldReturnString2ForInt2() {
         FizzBuzz fizzBuzz = new FizzBuzz();
         assertEquals("2", fizzBuzz.process(2));
     }
@@ -17,4 +17,5 @@ public class FizzBuzzTest {
         FizzBuzz fizzBuzz = new FizzBuzz();
         assertEquals("1",fizzBuzz.process(1));
     }
+
 }
