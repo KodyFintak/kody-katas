@@ -2,6 +2,8 @@
 build/
 .idea/
 
+out/
+
 lib-cov
 *.seed
 *.log
