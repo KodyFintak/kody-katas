@@ -2,12 +2,13 @@ package kata;
 
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CalculatorTest {
 
     @Test
     public void shouldAdd() {
-        assertEquals(4, Calculator.add(2, 2));
+        assertThat(Calculator.add(2, 2)).isEqualTo(4);
     }
 }
