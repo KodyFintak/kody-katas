@@ -12,4 +12,10 @@ public class FizzBuzzTest {
         var output = new FizzBuzz().print(1);
         assertThat(output).isEqualTo("1");
     }
+
+    @Test
+    public void twoEqualsTwo() {
+        var output = new FizzBuzz().print(2);
+        assertThat(output).isEqualTo("2");
+    }
 }
