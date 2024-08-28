@@ -8,7 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class FizzBuzzTest {
 
     @Test
-    public void firstTest() {
-        assertThat(true).isTrue();
+    public void oneEqualsOne() {
+        var output = new FizzBuzz().print(1);
+        assertThat(output).isEqualTo("1");
     }
 }
