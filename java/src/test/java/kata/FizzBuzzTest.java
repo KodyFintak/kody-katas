@@ -1,19 +1,20 @@
 package kata;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FizzBuzzTest {
 
-    @Test
-    public void oneGetsOne() {
-        assertThat(new FizzBuzz().print(1)).isEqualTo("1");
-    }
-
-    @Test
-    public void twoGetsTwo() {
-        assertThat(new FizzBuzz().print(2)).isEqualTo("2");
+    @ParameterizedTest
+    @CsvSource({
+            "1, 1",
+            "2, 2",
+    })
+    public void fizzBuzz(int number, String expected) {
+        assertThat(new FizzBuzz().print(number)).isEqualTo(expected);
     }
 }
