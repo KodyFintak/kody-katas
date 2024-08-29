@@ -11,4 +11,9 @@ public class FizzBuzzTest {
     public void oneGetsOne() {
         assertThat(new FizzBuzz().print(1)).isEqualTo("1");
     }
+
+    @Test
+    public void twoGetsTwo() {
+        assertThat(new FizzBuzz().print(2)).isEqualTo("2");
+    }
 }
