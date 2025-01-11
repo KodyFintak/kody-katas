@@ -1,3 +1,8 @@
+export function given(name: string, test: () => void) {
+    console.log(`given: ${name}`)
+    test()
+}
+
 export function it(name: string, test: () => void) {
     console.log(`- ${name}`)
     try {
