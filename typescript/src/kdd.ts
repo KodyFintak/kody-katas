@@ -12,11 +12,16 @@ export function fail(message: string) {
     throw new Error(message);
 }
 
-export function expect<T>(value: T) {
+export function expect<T>(actual: T) {
     return {
         toEqual(expected: T) {
-            const testResult = value === expected;
-            if (!testResult) fail(`expected ${value} == ${expected}`)
+            const testResult = isEqual(actual, expected);
+            if (!testResult) fail(`expected ${actual} == ${expected}`)
         }
     }
+}
+
+function isEqual<T>(actual: T, expected: T) {
+    if (typeof actual == "object") return JSON.stringify(actual) === JSON.stringify(expected);
+    return actual === expected;
 }
