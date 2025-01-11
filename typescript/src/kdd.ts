@@ -22,6 +22,10 @@ export function expect<T>(actual: T) {
 }
 
 function isEqual<T>(actual: T, expected: T) {
-    if (typeof actual == "object") return JSON.stringify(actual) === JSON.stringify(expected);
+    if (typeof actual == "object") return objectsAreEqual(actual, expected);
     return actual === expected;
+}
+
+function objectsAreEqual<T>(actual: T, expected: T) {
+    return JSON.stringify(actual) === JSON.stringify(expected);
 }
