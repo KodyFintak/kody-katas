@@ -7,9 +7,9 @@ export function fail(message: string) {
     throw new Error(message);
 }
 
-export function expect(value: number) {
+export function expect<T>(value: T) {
     return {
-        toEqual(expected: number) {
+        toEqual(expected: T) {
             const testResult = value === expected;
             if (!testResult) fail(`expected ${value} == ${expected}`)
         }
