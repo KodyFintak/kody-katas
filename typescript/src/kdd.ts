@@ -1,10 +1,10 @@
 export function it(name: string, test: () => void) {
-    console.log(`-\t${name}`)
+    console.log(`- ${name}`)
     try {
         test();
-        console.log("\t\tpass")
+        console.log("\tPASS")
     } catch (e: any) {
-        console.error(`\t\tfail\t${e.message}`)
+        console.error(`\tFAIL ${e.message}`)
     }
 }
 
