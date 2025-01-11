@@ -19,3 +19,7 @@ it('true is not equal to false', () => {
 it('[1] is equal to [1]', () => {
     expect([1]).toEqual([1])
 });
+
+it('[1] is not equal to [2]', () => {
+    expect([1]).toEqual([2])
+});

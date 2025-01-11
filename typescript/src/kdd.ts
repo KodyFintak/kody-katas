@@ -16,7 +16,7 @@ export function expect<T>(actual: T) {
     return {
         toEqual(expected: T) {
             const testResult = isEqual(actual, expected);
-            if (!testResult) fail(`expected ${actual} == ${expected}`)
+            if (!testResult) fail(`expected ${JSON.stringify(actual)} === ${JSON.stringify(expected)}`)
         }
     }
 }
