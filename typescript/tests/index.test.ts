@@ -24,4 +24,8 @@ given("testing toEqual", () => {
     it('[1] is not equal to [2]', () => {
         expect([1]).toEqual([2])
     });
+
+    it('{a: 1} is equal to {a: 1}', () => {
+        expect({a: 1}).toEqual({a: 1})
+    });
 })
