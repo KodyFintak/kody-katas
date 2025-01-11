@@ -1,6 +1,11 @@
 export function it(name: string, test: () => void) {
     console.log(`-\t${name}`)
-    test();
+    try {
+        test();
+        console.log("\t\tpass")
+    } catch (e: any) {
+        console.error(`\t\tfail\t${e.message}`)
+    }
 }
 
 export function fail(message: string) {
