@@ -17,7 +17,7 @@ export function it(name: string, test: () => void) {
 
 class AssertionError extends Error {
     name = "AssertionError";
-    
+
     constructor(message: string, assertionFunction?: Function) {
         super(message);
         this.startStackTraceAt(assertionFunction);
@@ -38,9 +38,7 @@ export function expect<T>(actual: T) {
     return {
         toEqual(expected: T) {
             const testResult = isEqual(actual, expected);
-            if (!testResult) {
-                fail(`expected ${JSON.stringify(actual)} === ${JSON.stringify(expected)}`, this.toEqual);
-            }
+            if (!testResult) fail(`expected ${JSON.stringify(actual)} === ${JSON.stringify(expected)}`, this.toEqual);
         }
     };
 }
