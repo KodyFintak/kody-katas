@@ -1,3 +1,6 @@
-import {fail} from "../src/kdd";
+import {fail, it} from "../src/kdd";
+import {assertFailure} from "../src/assert-failure";
 
-fail("expected 1 != 2")
+it('fails', () => {
+    assertFailure(() => fail("expected 1 != 2"))
+});
