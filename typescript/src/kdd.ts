@@ -17,8 +17,13 @@ export function it(name: string, test: () => void) {
 
 class AssertionError extends Error {
     name = "AssertionError";
+    
     constructor(message: string, assertionFunction?: Function) {
         super(message);
+        this.startStackTraceAt(assertionFunction);
+    }
+
+    private startStackTraceAt(assertionFunction: Function | undefined) {
         if (Error.captureStackTrace && assertionFunction) {
             Error.captureStackTrace(this, assertionFunction);
         }
