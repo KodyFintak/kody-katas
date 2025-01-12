@@ -29,3 +29,13 @@ given("testing toEqual", () => {
         expect({a: 1}).toEqual({a: 1})
     });
 })
+
+given("testing toContain", () => {
+    it('apple contains pl', () => {
+        expect('apple').toContain('pl')
+    });
+
+    it('[1] contains 1', () => {
+        expect([1]).toContain(1)
+    });
+})
