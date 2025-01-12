@@ -29,7 +29,7 @@ export function expect<T>(actual: T) {
         },
         toContain(...expectedElements: any[]) {
             expectedElements.forEach(expected => {
-                const testResult = String(actual).includes(String(expected));
+                const testResult = containsElement(actual, expected);
                 if (!testResult) fail(`expected ${JSON.stringify(actual)} to contain ${JSON.stringify(expected)}`, this.toContain);
             })
         }
@@ -42,5 +42,10 @@ function isEqual<T>(actual: T, expected: T) {
 }
 
 function objectsAreEqual<T>(actual: T, expected: T) {
-    return JSON.stringify(actual) === JSON.stringify(expected);
+    return JSON.stringify(actual, Object.keys(actual).sort()) === JSON.stringify(expected, Object.keys(expected).sort());
+}
+
+function containsElement<T>(actual: T, expected: any) {
+    if (Array.isArray(actual)) return actual.some(element => isEqual(element, expected))
+    return String(actual).includes(String(expected));
 }

@@ -28,6 +28,10 @@ given("testing toEqual", () => {
     it('{a: 1} is equal to {a: 1}', () => {
         expect({a: 1}).toEqual({a: 1})
     });
+
+    it('{a: 1, b: 1} is equal to {b: 1, a: 1}', () => {
+        expect({a: 1, b: 1}).toEqual({b: 1, a: 1})
+    });
 })
 
 given("testing toContain", () => {
@@ -35,7 +39,27 @@ given("testing toContain", () => {
         expect('apple').toContain('pl')
     });
 
+    it('apple does not contain you', () => {
+        expect('apple').toContain('you')
+    });
+
     it('[1] contains 1', () => {
         expect([1]).toContain(1)
+    });
+
+    it('[1] does not contain 2', () => {
+        expect([1]).toContain(2)
+    });
+
+    it('[{a: 1}] contains {a: 1}', () => {
+        expect([{a: 1}]).toContain({a: 1})
+    });
+
+    it('[{a: 1}] does not contains {b: 1}', () => {
+        expect([{a: 1}]).toContain({b: 1})
+    });
+
+    it('array of objects contains object with different order', () => {
+        expect([{a: 1, b: 1}]).toContain({b: 1, a: 1})
     });
 })
