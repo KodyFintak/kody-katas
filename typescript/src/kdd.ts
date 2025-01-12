@@ -1,3 +1,5 @@
+import {AssertionError} from "./assertion-error";
+
 export function given(name: string, test: () => void) {
     console.log(`given: ${name}`)
     test()
@@ -11,21 +13,6 @@ export function it(name: string, test: () => void) {
     } catch (e) {
         if (e instanceof Error) {
             console.error(`\tFAIL ${e.stack}`)
-        }
-    }
-}
-
-class AssertionError extends Error {
-    name = "AssertionError";
-
-    constructor(message: string, assertionFunction?: Function) {
-        super(message);
-        this.startStackTraceAt(assertionFunction);
-    }
-
-    private startStackTraceAt(assertionFunction: Function | undefined) {
-        if (Error.captureStackTrace && assertionFunction) {
-            Error.captureStackTrace(this, assertionFunction);
         }
     }
 }
