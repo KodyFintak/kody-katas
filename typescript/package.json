@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "package to use when doing katas",
   "scripts": {
-    "test": "mocha -r ts-node/register tests/**/*.spec.ts"
+    "test": "ts-node run-tests.ts"
   },
   "devDependencies": {
     "@types/chai": "^4.2.21",
