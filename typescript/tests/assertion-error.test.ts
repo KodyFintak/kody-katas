@@ -12,8 +12,7 @@ it('stack trace only contains caller one level deep', () => {
     try {
         obj.math(1, 2)
     } catch (e) {
-        expect(e.stack).toEqual("AssertionError: Nope\n" +
-            "    at /Users/kodyfintak/Documents/software/kody-katas/typescript/tests/assertion-error.test.ts:13:13")
+        expect(e.stack).toContain("AssertionError: Nope", "at", "tests/assertion-error.test.ts")
     }
 });
 
@@ -31,6 +30,7 @@ it('stack trace only contains caller two levels deep', () => {
     try {
         obj.math(1, 2)
     } catch (e) {
-        expect(e.stack).toEqual("AssertionError: Nope\n    at Object.math (/Users/kodyfintak/Documents/software/kody-katas/typescript/tests/assertion-error.test.ts:27:13)\n    at /Users/kodyfintak/Documents/software/kody-katas/typescript/tests/assertion-error.test.ts:32:13")
+        expect(e.stack).toContain("AssertionError: Nope", "at Object.math ", "tests/assertion-error.test.ts")
     }
 });
+

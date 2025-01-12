@@ -26,6 +26,12 @@ export function expect<T>(actual: T) {
         toEqual(expected: T) {
             const testResult = isEqual(actual, expected);
             if (!testResult) fail(`expected ${JSON.stringify(actual)} === ${JSON.stringify(expected)}`, this.toEqual);
+        },
+        toContain(...expectedElements: T[]) {
+            expectedElements.forEach(expected => {
+                const testResult = String(actual).includes(String(expected));
+                if (!testResult) fail(`expected ${JSON.stringify(actual)} to contain ${JSON.stringify(expected)}`, this.toContain);
+            })
         }
     };
 }
