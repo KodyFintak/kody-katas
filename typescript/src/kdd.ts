@@ -8,22 +8,33 @@ export function it(name: string, test: () => void) {
     try {
         test();
         console.log("\tPASS")
-    } catch (e: any) {
-        console.error(`\tFAIL ${e.message}`)
+    } catch (e) {
+        if (e instanceof Error) {
+            console.error(`\tFAIL ${e.stack}`)
+        }
     }
 }
 
-export function fail(message: string) {
-    throw new Error(message);
+export function fail(message: string, startFn?: Function) {
+    const error = new Error(message);
+
+    // Capture the stack trace excluding the function provided in `startFn`
+    if (Error.captureStackTrace && startFn) {
+        Error.captureStackTrace(error, startFn);
+    }
+
+    throw error;
 }
 
 export function expect<T>(actual: T) {
     return {
         toEqual(expected: T) {
             const testResult = isEqual(actual, expected);
-            if (!testResult) fail(`expected ${JSON.stringify(actual)} === ${JSON.stringify(expected)}`)
+            if (!testResult) {
+                fail(`expected ${JSON.stringify(actual)} === ${JSON.stringify(expected)}`, this.toEqual);
+            }
         }
-    }
+    };
 }
 
 function isEqual<T>(actual: T, expected: T) {
