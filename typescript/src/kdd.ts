@@ -15,15 +15,18 @@ export function it(name: string, test: () => void) {
     }
 }
 
-export function fail(message: string, startFn?: Function) {
-    const error = new Error(message);
-
-    // Capture the stack trace excluding the function provided in `startFn`
-    if (Error.captureStackTrace && startFn) {
-        Error.captureStackTrace(error, startFn);
+class AssertionError extends Error {
+    name = "AssertionError";
+    constructor(message: string, assertionFunction?: Function) {
+        super(message);
+        if (Error.captureStackTrace && assertionFunction) {
+            Error.captureStackTrace(this, assertionFunction);
+        }
     }
+}
 
-    throw error;
+export function fail(message: string, assertionFunction?: Function) {
+    throw new AssertionError(message, assertionFunction);
 }
 
 export function expect<T>(actual: T) {
