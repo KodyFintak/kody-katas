@@ -1,5 +1,6 @@
 import {AssertionError} from "./assertion-error";
 import {runner} from "./runner";
+import {Test} from "./test";
 
 export function given(name: string, test: () => void) {
     console.log(`given: ${name}`)
@@ -8,7 +9,7 @@ export function given(name: string, test: () => void) {
 
 export function it(name: string, test: () => void) {
     // console.log(`- ${name}`)
-    runner.addTest(name)
+    runner.addTest(new Test(name, test))
     try {
         test();
         // console.log("\tPASS")
