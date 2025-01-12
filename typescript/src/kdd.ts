@@ -6,12 +6,13 @@ export function given(name: string, test: () => void) {
 }
 
 export function it(name: string, test: () => void) {
-    console.log(`- ${name}`)
+    // console.log(`- ${name}`)
     try {
         test();
-        console.log("\tPASS")
+        // console.log("\tPASS")
     } catch (e) {
         if (e instanceof Error) {
+            console.log(`- ${name}`)
             console.error(`\tFAIL ${e.stack}`)
         }
     }

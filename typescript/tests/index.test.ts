@@ -29,7 +29,7 @@ given("testing toEqual", () => {
         expect({a: 1}).toEqual({a: 1})
     });
 
-    it('{a: 1, b: 1} is equal to {b: 1, a: 1}', () => {
+    it('object is equal to same object in different order', () => {
         expect({a: 1, b: 1}).toEqual({b: 1, a: 1})
     });
 })
