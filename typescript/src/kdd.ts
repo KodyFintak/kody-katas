@@ -43,7 +43,11 @@ function isEqual<T>(actual: T, expected: T) {
 }
 
 function objectsAreEqual<T>(actual: T, expected: T) {
-    return JSON.stringify(actual, Object.keys(actual).sort()) === JSON.stringify(expected, Object.keys(expected).sort());
+    return stringifyObjectInKeyOrder(actual) === stringifyObjectInKeyOrder(expected)
+}
+
+function stringifyObjectInKeyOrder<T>(o: T) {
+    return JSON.stringify(o, Object.keys(o).sort());
 }
 
 function containsElement<T>(actual: T, expected: any) {
