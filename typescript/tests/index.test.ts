@@ -1,4 +1,5 @@
 import {expect, given, it} from "../src/kdd";
+import {assertFailure} from "../src/assert-failure";
 
 given("testing toEqual", () => {
     it("1 equals 1", () => {
@@ -6,7 +7,7 @@ given("testing toEqual", () => {
     })
 
     it('1 does not equal 2', () => {
-        expect(1).toEqual(2)
+        assertFailure(() => expect(1).toEqual(2))
     });
 
     it('true equals true', () => {
@@ -14,7 +15,7 @@ given("testing toEqual", () => {
     });
 
     it('true is not equal to false', () => {
-        expect(true).toEqual(false)
+        assertFailure(() => expect(true).toEqual(false))
     });
 
     it('[1] is equal to [1]', () => {
@@ -22,7 +23,7 @@ given("testing toEqual", () => {
     });
 
     it('[1] is not equal to [2]', () => {
-        expect([1]).toEqual([2])
+        assertFailure(() => expect([1]).toEqual([2]))
     });
 
     it('{a: 1} is equal to {a: 1}', () => {
@@ -40,7 +41,7 @@ given("testing toContain", () => {
     });
 
     it('apple does not contain you', () => {
-        expect('apple').toContain('you')
+        assertFailure(() => expect('apple').toContain('you'))
     });
 
     it('[1] contains 1', () => {
@@ -48,7 +49,7 @@ given("testing toContain", () => {
     });
 
     it('[1] does not contain 2', () => {
-        expect([1]).toContain(2)
+        assertFailure(() => expect([1]).toContain(2))
     });
 
     it('[{a: 1}] contains {a: 1}', () => {
@@ -56,7 +57,7 @@ given("testing toContain", () => {
     });
 
     it('[{a: 1}] does not contains {b: 1}', () => {
-        expect([{a: 1}]).toContain({b: 1})
+        assertFailure(() => expect([{a: 1}]).toContain({b: 1}))
     });
 
     it('array of objects contains object with different order', () => {
