@@ -1,11 +1,8 @@
-const childProcess = require("child_process");
-
-function execute(command: string) {
-    childProcess.execSync(command);
-}
+import {runner} from "./src/runner";
 
 function runTests() {
-    execute("npx ts-node tests/index.test.ts")
+    require(`./${process.argv[2]}`)
+    runner.runTests()
 }
 
 runTests()

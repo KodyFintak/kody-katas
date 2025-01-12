@@ -8,17 +8,7 @@ export function given(name: string, test: () => void) {
 }
 
 export function it(name: string, test: () => void) {
-    // console.log(`- ${name}`)
     runner.addTest(new Test(name, test))
-    try {
-        test();
-        // console.log("\tPASS")
-    } catch (e) {
-        if (e instanceof Error) {
-            console.log(`- ${name}`)
-            console.error(`\tFAIL ${e.stack}`)
-        }
-    }
 }
 
 export function fail(message: string, assertionFunction?: Function) {
