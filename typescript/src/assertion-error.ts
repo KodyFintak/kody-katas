@@ -9,7 +9,8 @@ export class AssertionError extends Error {
     private startStackTraceAt(assertionFunction?: Function) {
         if (Error.captureStackTrace && assertionFunction) {
             Error.captureStackTrace(this, assertionFunction);
-            this.stack = this.stack?.split("\n").slice(0, 2).join("\n")
+            const indexOfLineInsideFramework = this.stack?.split("\n").findIndex(line => line.includes("kdd.ts"))
+            this.stack = this.stack?.split("\n").slice(0, indexOfLineInsideFramework).join("\n")
         }
     }
 }
