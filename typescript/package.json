@@ -1,16 +1,15 @@
 {
   "name": "kodykatas",
   "version": "1.0.0",
+  "type": "module",
   "description": "package to use when doing katas",
   "scripts": {
-    "test": "mocha -r ts-node/register tests/**/*.spec.ts"
+    "test": "vitest run"
   },
   "devDependencies": {
-    "@types/chai": "^4.2.21",
-    "@types/mocha": "^8.2.3",
-    "chai": "^4.3.4",
-    "mocha": "^9.0.2",
+    "prettier": "^3.5.3",
     "ts-node": "^10.1.0",
-    "typescript": "^4.3.5"
+    "typescript": "^4.3.5",
+    "vitest": "^3.0.9"
   }
 }
