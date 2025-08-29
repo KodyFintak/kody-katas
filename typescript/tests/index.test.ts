@@ -10,10 +10,17 @@ describe('Gilded Rose Approval', () => {
         expect(items).toMatchSnapshot();
     });
 
-    it('should sulfaras', () => {
-        const gildedRose = new GildedRose([new Item('Sulfuras, Hand of Ragnaros', 0, 5)]);
+    it('should "Sulfuras", being a legendary item, never has to be sold or decreases in Quality', () => {
+        const gildedRose = new GildedRose([
+          new Item('Sulfuras, Hand of Ragnaros', 0, 5),
+          new Item("Sulfuras, Hand of Ragnaros", 0, 80), //
+          new Item("Sulfuras, Hand of Ragnaros", -1, 80)
+        ]);
         const items = gildedRose.updateQuality();
+
 
         expect(items).toMatchSnapshot();
     });
+
+
 });
