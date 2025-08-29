@@ -14,7 +14,8 @@ repo for writing katas
 This is a npm package with mocha + chai, so run the following command to run the tests
 
 ```sh
+npm i -g tsx
 npm install
+npm test
 
-npm test 
 ```
