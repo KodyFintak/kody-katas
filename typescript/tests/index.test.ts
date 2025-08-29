@@ -1,6 +1,6 @@
 import {GildedRose} from '../src';
 
-// kody, ellis
+// kody, ellis, rob
 describe('test', () => {
     it('should add 1 + 2', () => {
         const rose = new GildedRose();
