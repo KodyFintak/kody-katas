@@ -1,6 +1,6 @@
 import {GildedRose} from '../src';
 
-// kody
+// kody, ellis
 describe('test', () => {
     it('should add 1 + 2', () => {
         const rose = new GildedRose();
