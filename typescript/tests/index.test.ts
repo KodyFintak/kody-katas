@@ -1,6 +1,6 @@
 import {execSync} from 'node:child_process';
 
-// kody, ellis, rob, sam, matt, meng
+// kody, ellis, rob, matt, meng
 describe('Gilded Rose Approval', () => {
     // sellIn, quality
     it('should thirtyDays', () => {
