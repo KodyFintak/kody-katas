@@ -20,6 +20,16 @@ exports[`Gilded Rose Approval > should "Sulfuras", being a legendary item, never
 ]
 `;
 
+exports[`Gilded Rose Approval > should Once the sell by date has passed, \`Quality\` degrades twice as fast 1`] = `
+[
+  Item {
+    "name": "+5 Dexterity Vest",
+    "quality": 18,
+    "sellIn": -1,
+  },
+]
+`;
+
 exports[`Gilded Rose Approval > should foo 1`] = `
 [
   Item {
