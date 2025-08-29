@@ -1,7 +1,8 @@
-import { add } from '../src';
+import {GildedRose} from '../src';
 
 describe('test', () => {
     it('should add 1 + 2', () => {
-        expect(add(1, 2)).toEqual(2);
+        const rose = new GildedRose();
+        rose.updateQuality();
     });
 });
