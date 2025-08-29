@@ -43,6 +43,7 @@ describe('Gilded Rose Approval', () => {
     expect(items).toMatchSnapshot();
   });
 
+  // needs 'npm i -g tsx' command
   it('should thirtyDays', () => {
     const consoleOutput = execSync(
       'tsx tests/golden-master-test.ts 30',
