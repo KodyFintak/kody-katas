@@ -9,3 +9,13 @@ exports[`Gilded Rose Approval > should foo 1`] = `
   },
 ]
 `;
+
+exports[`Gilded Rose Approval > should sulfaras 1`] = `
+[
+  Item {
+    "name": "Sulfuras, Hand of Ragnaros",
+    "quality": 5,
+    "sellIn": 0,
+  },
+]
+`;
