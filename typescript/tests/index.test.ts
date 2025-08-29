@@ -1,9 +1,11 @@
-import {GildedRose} from '../src';
+import { GildedRose, Item } from '../src';
 
-// kody, ellis, rob. sam, garrick, matt
-describe('test', () => {
-    it('should add 1 + 2', () => {
-        const rose = new GildedRose();
-        rose.updateQuality();
+// kody, ellis, rob, sam, matt
+describe('Gilded Rose Approval', () => {
+    it('should foo', () => {
+        const gildedRose = new GildedRose([new Item('foo2', 0, 0)]);
+        const items = gildedRose.updateQuality();
+
+        expect(items).toMatchSnapshot();
     });
 });
