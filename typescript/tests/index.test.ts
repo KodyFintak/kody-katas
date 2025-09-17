@@ -1,8 +1,8 @@
-import {GildedRose} from '../src';
+import {hello} from '../src';
+import {expect} from "vitest";
 
 describe('test', () => {
-    it('should add 1 + 2', () => {
-        const rose = new GildedRose();
-        rose.updateQuality();
+    it('should do something', () => {
+        expect(hello()).toEqual(false)
     });
 });
