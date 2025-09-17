@@ -33,11 +33,11 @@ install_node() {
 }
 
 npm_install() {
-  echo "running npm install on repo"
+  echo "running npm ci on repo"
 
-  npm i
+  npm ci
 
-  echo "npm install complete"
+  echo "npm ci complete"
 }
 
 install_mob() {
