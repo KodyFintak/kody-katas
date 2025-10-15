@@ -1,14 +1,11 @@
 # kody-katas
 repo for writing katas
 
-### Install packages:
+### First time install
+`./install-mac.sh`
 
-```
-$ pip install -r requirements.txt
-```
+### Install dependencies:
+`./install.sh`
 
 ## Run the tests:
-
-```
-
-```
+`./test.sh`

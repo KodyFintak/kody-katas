@@ -28,3 +28,4 @@ install_python() {
 
 install_pyenv
 install_python
+./install.sh

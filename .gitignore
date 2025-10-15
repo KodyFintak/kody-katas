@@ -74,6 +74,7 @@ composer.lock
 *.scss.map
 
 # python
+venv
 _build/*
 .eggs/*
 dist/
