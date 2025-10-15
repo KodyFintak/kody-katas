@@ -7,8 +7,8 @@ class Grid:
 
     def is_dead(self):
         for row in self.grid:
-            for column in row:
-                if column == 1:
+            for cell in row:
+                if cell == 1:
                     return False
 
         return True
