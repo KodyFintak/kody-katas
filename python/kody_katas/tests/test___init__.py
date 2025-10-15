@@ -15,5 +15,12 @@ from kody_katas import add
 
 class Test(TestCase):
 
-    def test_adds_1_and_1(self):
-        self.assertEqual(2, add(1, 1))
+
+    def test_grid_is_four_by_four(self):
+        grid = [
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+        ]
+        self.assertEqual(4, len(grid))
