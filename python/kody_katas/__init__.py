@@ -12,3 +12,6 @@ class Grid:
                     return False
 
         return True
+
+    def next_iteration(self):
+        return self.grid

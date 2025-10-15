@@ -32,3 +32,18 @@ class Test(TestCase):
             [0, 0, 0, 0],
         ])
         self.assertFalse(grid.is_dead())
+
+    def test_next_iteration_is_dead(self):
+        grid = Grid([
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+        ])
+        expected_grid = [
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+        ]
+        self.assertEqual(expected_grid, grid.next_iteration())
