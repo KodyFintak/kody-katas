@@ -72,3 +72,10 @@ composer.lock
 *.css.map
 *.sass.map
 *.scss.map
+
+# python
+_build/*
+.eggs/*
+dist/
+kody_katas.egg-info/
+__pycache__
