@@ -23,3 +23,12 @@ class Test(TestCase):
             [0, 0, 0, 0],
         ])
         self.assertTrue(grid.is_dead())
+
+    def test_grid_is_not_dead(self):
+        grid = Grid([
+            [1, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+        ])
+        self.assertFalse(grid.is_dead())
