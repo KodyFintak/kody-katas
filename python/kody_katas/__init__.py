@@ -14,4 +14,9 @@ class Grid:
         return True
 
     def next_iteration(self):
-        return self.grid
+        return [
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+        ]

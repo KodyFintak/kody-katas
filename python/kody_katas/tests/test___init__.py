@@ -47,3 +47,18 @@ class Test(TestCase):
             [0, 0, 0, 0],
         ]
         self.assertEqual(expected_grid, grid.next_iteration())
+
+    def test_underpopulated_cell_dies(self):
+        grid = Grid([
+            [1, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+        ])
+        expected_grid = [
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+        ]
+        self.assertEqual(expected_grid, grid.next_iteration())
