@@ -13,14 +13,19 @@ from kody_katas import add
 #    3. Any live cell with two or three live neighbours lives on to the next generation.
 #    4. Any dead cell with exactly three live neighbours becomes a live cell.
 
+class Grid:
+    def __init__(self, grid):
+        self.grid = grid
+        self.rows = 4
+        self.columns = 4
+
 class Test(TestCase):
-
-
     def test_grid_is_four_by_four(self):
-        grid = [
+        grid = Grid([
             [0, 0, 0, 0],
             [0, 0, 0, 0],
             [0, 0, 0, 0],
             [0, 0, 0, 0],
-        ]
-        self.assertEqual(4, len(grid))
+        ])
+        self.assertEqual(4, grid.rows)
+        self.assertEqual(4, grid.columns)
