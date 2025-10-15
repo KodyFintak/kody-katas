@@ -29,3 +29,15 @@ class Test(TestCase):
         ])
         self.assertEqual(4, grid.rows)
         self.assertEqual(4, grid.columns)
+
+    def test_grid_is_five_by_five(self):
+        grid = Grid([
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+        ])
+        self.assertEqual(5, grid.rows)
+        self.assertEqual(5, grid.columns)
+
