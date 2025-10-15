@@ -1,6 +1,7 @@
 from unittest import TestCase
 
-from kody_katas import add
+from kody_katas import Grid
+
 
 # Pairing
 # Driver/Typist - hands on keyboard. Focusing on how to take the words and turn them into code
@@ -12,14 +13,6 @@ from kody_katas import add
 #    2. Any live cell with more than three live neighbours dies, as if by overcrowding.
 #    3. Any live cell with two or three live neighbours lives on to the next generation.
 #    4. Any dead cell with exactly three live neighbours becomes a live cell.
-
-class Grid:
-    def __init__(self, grid):
-        self.grid = grid
-
-    def is_dead(self):
-        return True
-    
 
 class Test(TestCase):
     def test_grid_is_dead(self):
