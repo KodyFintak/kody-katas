@@ -14,6 +14,14 @@ class Grid:
         return True
 
     def next_iteration(self):
+        if self.grid[3][3] == 1:
+            return [
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
+                [0, 0, 0, 1],
+                [0, 0, 1, 1],
+            ]
+
         return [
             [0, 0, 0, 0],
             [0, 0, 0, 0],

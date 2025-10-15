@@ -62,3 +62,19 @@ class Test(TestCase):
             [0, 0, 0, 0],
         ]
         self.assertEqual(expected_grid, grid.next_iteration())
+
+    #    3. Any live cell with two or three live neighbours lives on to the next generation.
+    def test_properly_populated_cell_lives_on(self):
+        grid = Grid([
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 1],
+            [0, 0, 1, 1],
+        ])
+        expected_grid = [
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 1],
+            [0, 0, 1, 1],
+        ]
+        self.assertEqual(expected_grid, grid.next_iteration())
