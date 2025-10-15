@@ -16,8 +16,17 @@ from kody_katas import add
 class Grid:
     def __init__(self, grid):
         self.grid = grid
-        self.rows = 4
-        self.columns = 4
+
+        count = 0
+        column_count = 0
+        for row in grid:
+            count += 1
+
+        for column in grid:
+            column_count += 1
+
+        self.rows = count
+        self.columns = column_count
 
 class Test(TestCase):
     def test_grid_is_four_by_four(self):
@@ -32,11 +41,11 @@ class Test(TestCase):
 
     def test_grid_is_five_by_five(self):
         grid = Grid([
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
         ])
         self.assertEqual(5, grid.rows)
         self.assertEqual(5, grid.columns)
