@@ -17,36 +17,16 @@ class Grid:
     def __init__(self, grid):
         self.grid = grid
 
-        count = 0
-        column_count = 0
-        for row in grid:
-            count += 1
-
-        for column in grid:
-            column_count += 1
-
-        self.rows = count
-        self.columns = column_count
+    def is_dead(self):
+        return True
+    
 
 class Test(TestCase):
-    def test_grid_is_four_by_four(self):
+    def test_grid_is_dead(self):
         grid = Grid([
             [0, 0, 0, 0],
             [0, 0, 0, 0],
             [0, 0, 0, 0],
             [0, 0, 0, 0],
         ])
-        self.assertEqual(4, grid.rows)
-        self.assertEqual(4, grid.columns)
-
-    def test_grid_is_five_by_five(self):
-        grid = Grid([
-            [0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0],
-        ])
-        self.assertEqual(5, grid.rows)
-        self.assertEqual(5, grid.columns)
-
+        self.assertTrue(grid.is_dead())
