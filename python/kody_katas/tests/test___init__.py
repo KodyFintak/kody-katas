@@ -1,7 +1,6 @@
 from unittest import TestCase
 
-from kody_katas import Grid
-
+from kody_katas import Grid, Cell
 
 # Pairing
 # Driver/Typist - hands on keyboard. Focusing on how to take the words and turn them into code
@@ -78,3 +77,7 @@ class Test(TestCase):
             [0, 0, 1, 1],
         ]
         self.assertEqual(expected_grid, grid.next_iteration())
+
+    def test_cell_is_alive(self):
+        cell = Cell(1)
+        self.assertTrue(cell.is_alive())
