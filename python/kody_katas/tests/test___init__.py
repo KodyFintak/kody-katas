@@ -102,3 +102,13 @@ class Test(TestCase):
         cell = Cell(1)
         dead_cell = cell.next_iteration(2)
         self.assertTrue(dead_cell.is_alive())
+
+    def test_cell_with_three_live_neighbors_lives(self):
+        cell = Cell(1)
+        alive_cell = cell.next_iteration(3)
+        self.assertTrue(alive_cell.is_alive())
+    
+    def test_dead_cell_with_two_live_neighbors_stays_dead(self):
+        cell = Cell(0)
+        dead_cell = cell.next_iteration(2)
+        self.assertFalse(dead_cell.is_alive())

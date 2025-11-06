@@ -37,7 +37,9 @@ class Cell:
         return self.state == 1
 
     def next_iteration(self, number_of_live_neighbors):
-        if number_of_live_neighbors == 2:
-            return Cell(1)
+        if self.is_alive():
+            if number_of_live_neighbors == 2 or number_of_live_neighbors == 3:
+                return Cell(1)
 
         return Cell(0)
+    
