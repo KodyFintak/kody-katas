@@ -28,7 +28,7 @@ class Grid:
             [0, 0, 0, 0],
             [0, 0, 0, 0],
         ]
-    
+
 class Cell:
     def __init__(self, state):
         self.state = state

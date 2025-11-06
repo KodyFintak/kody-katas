@@ -13,6 +13,11 @@ from kody_katas import Grid, Cell
 #    3. Any live cell with two or three live neighbours lives on to the next generation.
 #    4. Any dead cell with exactly three live neighbours becomes a live cell.
 
+
+# ternary
+# boolean expression ? (run if true) : (run if false)
+# e.g. 4 == 2 ? log('hi') : log('bye') // prints bye
+
 class Test(TestCase):
     def test_grid_is_dead(self):
         grid = Grid([
