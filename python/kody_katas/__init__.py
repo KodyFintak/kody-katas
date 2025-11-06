@@ -33,13 +33,21 @@ class Cell:
     def __init__(self, state):
         self.state = state
 
+    @classmethod
+    def create_alive(cls):
+        return Cell(1)
+
+    @classmethod
+    def create_dead(cls):
+        return Cell(0)
+
     def is_alive(self):
         return self.state == 1
 
     def next_iteration(self, number_of_live_neighbors):
         if self.is_alive():
             if number_of_live_neighbors == 2 or number_of_live_neighbors == 3:
-                return Cell(1)
+                return Cell.create_alive()
 
-        return Cell(0)
+        return Cell.create_dead()
     

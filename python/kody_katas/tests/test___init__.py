@@ -84,31 +84,31 @@ class Test(TestCase):
         self.assertEqual(expected_grid, grid.next_iteration())
 
     def test_cell_is_alive(self):
-        cell = Cell(1)
+        cell = Cell.create_alive()
         self.assertTrue(cell.is_alive())
 
     def test_cell_is_dead(self):
-        cell = Cell(0)
+        cell = Cell.create_dead()
         self.assertFalse(cell.is_alive())
 
     # 1. Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
     def test_cell_with_no_live_neighbors_dies(self):
-        cell = Cell(1)
+        cell = Cell.create_alive()
         dead_cell = cell.next_iteration(0)
         self.assertFalse(dead_cell.is_alive())
 
     # 3. Any live cell with two or three live neighbours lives on to the next generation.
     def test_cell_with_two_live_neighbors_lives(self):
-        cell = Cell(1)
+        cell = Cell.create_alive()
         dead_cell = cell.next_iteration(2)
         self.assertTrue(dead_cell.is_alive())
 
     def test_cell_with_three_live_neighbors_lives(self):
-        cell = Cell(1)
+        cell = Cell.create_alive()
         alive_cell = cell.next_iteration(3)
         self.assertTrue(alive_cell.is_alive())
     
     def test_dead_cell_with_two_live_neighbors_stays_dead(self):
-        cell = Cell(0)
+        cell = Cell.create_dead()
         dead_cell = cell.next_iteration(2)
         self.assertFalse(dead_cell.is_alive())
