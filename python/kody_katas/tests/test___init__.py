@@ -81,3 +81,7 @@ class Test(TestCase):
     def test_cell_is_alive(self):
         cell = Cell(1)
         self.assertTrue(cell.is_alive())
+
+    def test_cell_is_dead(self):
+        cell = Cell(0)
+        self.assertFalse(cell.is_alive())

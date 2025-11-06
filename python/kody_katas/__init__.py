@@ -34,4 +34,4 @@ class Cell:
         self.state = state
 
     def is_alive(self):
-        return True
+        return self.state == 1
