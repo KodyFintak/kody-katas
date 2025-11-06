@@ -90,3 +90,9 @@ class Test(TestCase):
     def test_cell_is_dead(self):
         cell = Cell(0)
         self.assertFalse(cell.is_alive())
+
+    # 1. Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
+    def test_cell_with_no_live_neighbors_dies(self):
+        cell = Cell(1)
+        dead_cell = cell.next_iteration()
+        self.assertFalse(dead_cell.is_alive())

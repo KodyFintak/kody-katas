@@ -35,3 +35,6 @@ class Cell:
 
     def is_alive(self):
         return self.state == 1
+
+    def next_iteration(self):
+        return Cell(0)
