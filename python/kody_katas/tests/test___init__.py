@@ -96,6 +96,15 @@ class Test(TestCase):
         cell = Cell.create_alive().next_iteration(0)
         self.assertFalse(cell.is_alive())
 
+    def test_cell_with_one_live_neighbors_dies(self):
+        cell = Cell.create_alive().next_iteration(1)
+        self.assertFalse(cell.is_alive())
+
+    # 2. Any live cell with more than three live neighbours dies, as if by overcrowding.
+    def test_live_cell_with_more_than_three_live_neighbours_dies(self):
+        cell = Cell.create_alive().next_iteration(4)
+        self.assertFalse(cell.is_alive())
+
     # 3. Any live cell with two or three live neighbours lives on to the next generation.
     def test_cell_with_two_live_neighbors_lives(self):
         cell = Cell.create_alive().next_iteration(2)
