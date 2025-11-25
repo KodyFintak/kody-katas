@@ -49,5 +49,9 @@ class Cell:
             if number_of_live_neighbors == 2 or number_of_live_neighbors == 3:
                 return Cell.create_alive()
 
+        if not self.is_alive():
+            if number_of_live_neighbors == 3:
+                return Cell.create_alive()
+
         return Cell.create_dead()
     
