@@ -131,4 +131,13 @@ class Test(TestCase):
         ])
         live_neighbour_count = grid.count_live_neighbours_for_cell(1, 1)
         self.assertEqual(0, live_neighbour_count)
+
+    def test_get_one_live_neighbour_for_cell (self):
+        grid = Grid([
+            [1, 0, 0],
+            [0, 0, 0],
+            [0, 0, 0],
+        ])
+        live_neighbour_count = grid.count_live_neighbours_for_cell(1, 1)
+        self.assertEqual(1, live_neighbour_count)
         

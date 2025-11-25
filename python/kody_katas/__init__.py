@@ -6,7 +6,11 @@ class Grid:
         self.grid = grid
 
     def count_live_neighbours_for_cell(self, x, y):
-    
+        for row in self.grid:
+            for cell in row:
+                if cell == 1:
+                    return 1
+
         return 0
     
     def is_dead(self):
