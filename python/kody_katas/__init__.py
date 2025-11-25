@@ -5,6 +5,10 @@ class Grid:
     def __init__(self, grid):
         self.grid = grid
 
+    def count_live_neighbours_for_cell(self, x, y):
+    
+        return 0
+    
     def is_dead(self):
         for row in self.grid:
             for cell in row:

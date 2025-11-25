@@ -118,6 +118,17 @@ class Test(TestCase):
         cell = Cell.create_dead().next_iteration(2)
         self.assertFalse(cell.is_alive())
 
+    # 4. Any dead cell with exactly three live neighbours becomes a live cell.
     def test_dead_cell_with_three_live_neighbors_becomes_alive(self):
         cell = Cell.create_dead().next_iteration(3)
         self.assertTrue(cell.is_alive())
+
+    def test_get_no_live_neighbours_for_cell (self):
+        grid = Grid([
+            [0, 0, 0],
+            [0, 0, 0],
+            [0, 0, 0],
+        ])
+        live_neighbour_count = grid.count_live_neighbours_for_cell(1, 1)
+        self.assertEqual(0, live_neighbour_count)
+        
