@@ -123,7 +123,7 @@ class Test(TestCase):
         cell = Cell.create_dead().next_iteration(3)
         self.assertTrue(cell.is_alive())
 
-    def test_get_no_live_neighbours_for_cell (self):
+    def test_get_no_live_neighbours_for_cell(self):
         grid = Grid([
             [0, 0, 0],
             [0, 0, 0],
@@ -132,7 +132,7 @@ class Test(TestCase):
         live_neighbour_count = grid.count_live_neighbours_for_cell(1, 1)
         self.assertEqual(0, live_neighbour_count)
 
-    def test_get_one_live_neighbour_for_cell (self):
+    def test_get_one_live_neighbour_for_cell(self):
         grid = Grid([
             [1, 0, 0],
             [0, 0, 0],
@@ -140,4 +140,13 @@ class Test(TestCase):
         ])
         live_neighbour_count = grid.count_live_neighbours_for_cell(1, 1)
         self.assertEqual(1, live_neighbour_count)
+
+    def test_get_two_live_neighbour_for_cell(self):
+        grid = Grid([
+            [1, 0, 0],
+            [0, 0, 0],
+            [0, 1, 0],
+        ])
+        live_neighbour_count = grid.count_live_neighbours_for_cell(1, 1)
+        self.assertEqual(2, live_neighbour_count)
         
