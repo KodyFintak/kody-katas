@@ -93,25 +93,21 @@ class Test(TestCase):
 
     # 1. Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
     def test_cell_with_no_live_neighbors_dies(self):
-        cell = Cell.create_alive()
-        dead_cell = cell.next_iteration(0)
-        self.assertFalse(dead_cell.is_alive())
+        cell = Cell.create_alive().next_iteration(0)
+        self.assertFalse(cell.is_alive())
 
     # 3. Any live cell with two or three live neighbours lives on to the next generation.
     def test_cell_with_two_live_neighbors_lives(self):
-        cell = Cell.create_alive()
-        dead_cell = cell.next_iteration(2)
-        self.assertTrue(dead_cell.is_alive())
+        cell = Cell.create_alive().next_iteration(2)
+        self.assertTrue(cell.is_alive())
 
     def test_cell_with_three_live_neighbors_lives(self):
-        cell = Cell.create_alive()
-        alive_cell = cell.next_iteration(3)
-        self.assertTrue(alive_cell.is_alive())
+        cell = Cell.create_alive().next_iteration(3)
+        self.assertTrue(cell.is_alive())
     
     def test_dead_cell_with_two_live_neighbors_stays_dead(self):
-        cell = Cell.create_dead()
-        dead_cell = cell.next_iteration(2)
-        self.assertFalse(dead_cell.is_alive())
+        cell = Cell.create_dead().next_iteration(2)
+        self.assertFalse(cell.is_alive())
 
     def test_dead_cell_with_three_live_neighbors_becomes_alive(self):
         cell = Cell.create_dead().next_iteration(3)
