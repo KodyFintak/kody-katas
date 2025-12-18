@@ -16,7 +16,7 @@ class Grid:
         if self.is_cell_alive(y - 1, x):
             count += 1
 
-        if y > 0 and x < len(self.grid[y - 1]) - 1:
+        if self.is_in_bounds(y - 1) and x < len(self.grid[y - 1]) - 1:
             if self.is_cell_alive(y - 1, x + 1):
                 count += 1
 
@@ -28,22 +28,22 @@ class Grid:
             if self.is_cell_alive(y, x + 1):
                 count += 1
 
-        if x > 0 and self.is_out_of_bounds(y + 1):
+        if x > 0 and self.is_in_bounds(y + 1):
             if self.is_cell_alive(y + 1, x - 1):
                 count += 1
 
-        if self.is_out_of_bounds(y + 1):
+        if self.is_in_bounds(y + 1):
             if self.is_cell_alive(y + 1, x):
                 count += 1
 
-        if self.is_out_of_bounds(y + 1):
+        if self.is_in_bounds(y + 1):
             if self.is_cell_alive(y + 1, x + 1):
                 count += 1
 
         return count
 
-    def is_out_of_bounds(self, y):
-        return y < len(self.grid)
+    def is_in_bounds(self, y):
+        return 0 <= y < len(self.grid)
 
     def is_cell_alive(self, y, x):
         return self.grid[y][x] == 1
