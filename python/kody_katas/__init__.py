@@ -8,8 +8,9 @@ class Grid:
     def count_live_neighbours_for_cell(self, y, x):
         count = 0
 
-        if self.grid[y - 1][x - 1] == 1:
-            count += 1
+        if y > 0 and x > 0:
+            if self.grid[y - 1][x - 1] == 1:
+                count += 1
 
         if self.grid[y - 1][x] == 1:
             count += 1
