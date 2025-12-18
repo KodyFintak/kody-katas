@@ -24,8 +24,9 @@ class Grid:
         if self.grid[y][x + 1] == 1:
             count += 1
 
-        if self.grid[y + 1][x - 1] == 1:
-            count += 1
+        if x > 0:
+            if self.grid[y + 1][x - 1] == 1:
+                count += 1
 
         if self.grid[y + 1][x] == 1:
             count += 1

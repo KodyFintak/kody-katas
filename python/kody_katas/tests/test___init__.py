@@ -171,7 +171,7 @@ class Test(TestCase):
     def test_boundaries_of_get_live_neighbors(self):
         grid = Grid([
             [1, 1, 0],
-            [0, 0, 0],
+            [0, 0, 1],
             [0, 1, 0],
         ])
         live_neighbour_count = grid.count_live_neighbours_for_cell(0, 0)
