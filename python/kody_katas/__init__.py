@@ -32,11 +32,15 @@ class Grid:
         if self.grid[y + 1][x] == 1:
             count += 1
 
-        if self.grid[y + 1][x + 1] == 1:
+        if self.is_cell_alive(y + 1 ,x + 1):
             count += 1
 
         return count
     
+    def is_cell_alive(self, y, x):
+        return self.grid[y][x] == 1
+            
+
     def is_dead(self):
         for row in self.grid:
             for cell in row:
