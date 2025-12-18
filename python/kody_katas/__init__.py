@@ -15,7 +15,7 @@ class Grid:
         if self.is_cell_alive(y - 1, x):
             count += 1
 
-        if y > 0:
+        if y > 0 and x < len(self.grid[y - 1]) - 1:
             if self.is_cell_alive(y - 1, x + 1):
                 count += 1
 
@@ -23,18 +23,21 @@ class Grid:
             if self.is_cell_alive(y, x - 1):
                 count += 1
 
-        if self.is_cell_alive(y, x + 1):
-            count += 1
+        if x < len(self.grid[y]) - 1:
+            if self.is_cell_alive(y, x + 1):
+                count += 1
 
-        if x > 0:
+        if x > 0 and y < len(self.grid) - 1:
             if self.is_cell_alive(y + 1, x - 1):
                 count += 1
 
-        if self.is_cell_alive(y + 1, x):
-            count += 1
+        if y < len(self.grid) - 1:
+            if self.is_cell_alive(y + 1, x):
+                count += 1
 
-        if self.is_cell_alive(y + 1, x + 1):
-            count += 1
+        if y < len(self.grid) - 1:
+            if self.is_cell_alive(y + 1, x + 1):
+                count += 1
 
         return count
     

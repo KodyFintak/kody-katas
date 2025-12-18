@@ -168,11 +168,20 @@ class Test(TestCase):
         live_neighbour_count = grid.count_live_neighbours_for_cell(0, 0)
         self.assertEqual(1, live_neighbour_count)
 
-    def test_boundaries_of_get_live_neighbors(self):
+    def test_top_left_boundaries_of_get_live_neighbors(self):
         grid = Grid([
             [1, 1, 1],
             [0, 0, 1],
             [0, 1, 1],
         ])
         live_neighbour_count = grid.count_live_neighbours_for_cell(0, 0)
+        self.assertEqual(1, live_neighbour_count)
+
+    def test_bottom_right_boundaries_of_get_live_neighbors(self):
+        grid = Grid([
+            [1, 0, 0],
+            [0, 0, 0],
+            [0, 1, 0],
+        ])
+        live_neighbour_count = grid.count_live_neighbours_for_cell(2, 2)
         self.assertEqual(1, live_neighbour_count)
