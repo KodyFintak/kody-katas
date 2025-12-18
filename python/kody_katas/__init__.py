@@ -5,31 +5,31 @@ class Grid:
     def __init__(self, grid):
         self.grid = grid
 
-    def count_live_neighbours_for_cell(self, x, y):
+    def count_live_neighbours_for_cell(self, y, x):
         count = 0
 
-        if self.grid[x-1][y-1] == 1:
+        if self.grid[y - 1][x - 1] == 1:
             count += 1
 
-        if self.grid[x][y-1] == 1:
+        if self.grid[y - 1][x] == 1:
             count += 1
 
-        if self.grid[x+1][y-1] == 1:
+        if self.grid[y - 1][x + 1] == 1:
             count += 1
 
-        if self.grid[x-1][y] == 1:
+        if self.grid[y][x - 1] == 1:
             count += 1
 
-        if self.grid[x+1][y] == 1:
+        if self.grid[y][x + 1] == 1:
             count += 1
 
-        if self.grid[x-1][y+1] == 1:
+        if self.grid[y + 1][x - 1] == 1:
             count += 1
 
-        if self.grid[x][y+1] == 1:
+        if self.grid[y + 1][x] == 1:
             count += 1
 
-        if self.grid[x+1][y+1] == 1:
+        if self.grid[y + 1][x + 1] == 1:
             count += 1
 
         return count
