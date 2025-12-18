@@ -170,7 +170,7 @@ class Test(TestCase):
 
     def test_boundaries_of_get_live_neighbors(self):
         grid = Grid([
-            [1, 1, 0],
+            [1, 1, 1],
             [0, 0, 1],
             [0, 1, 1],
         ])
