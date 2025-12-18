@@ -9,7 +9,7 @@ class Grid:
     def count_live_neighbours_for_cell(self, y, x):
         count = 0
 
-        if y > 0 and x > 0:
+        if self.is_in_bounds(y - 1) and x > 0:
             if self.is_cell_alive(y - 1, x - 1):
                 count += 1
 
