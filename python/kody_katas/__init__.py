@@ -9,36 +9,29 @@ class Grid:
     def count_live_neighbours_for_cell(self, y, x):
         count = 0
 
-        if self.is_in_bounds(y - 1, x - 1) and x > 0:
-            if self.is_cell_alive(y - 1, x - 1):
-                count += 1
+        if self.is_cell_alive(y - 1, x - 1):
+            count += 1
 
         if self.is_cell_alive(y - 1, x):
             count += 1
 
-        if self.is_in_bounds(y - 1, x + 1) and x < len(self.grid[y - 1]) - 1:
-            if self.is_cell_alive(y - 1, x + 1):
-                count += 1
+        if self.is_cell_alive(y - 1, x + 1):
+            count += 1
 
-        if x > 0:
-            if self.is_cell_alive(y, x - 1):
-                count += 1
+        if self.is_cell_alive(y, x - 1):
+            count += 1
 
-        if x < len(self.grid[y]) - 1:
-            if self.is_cell_alive(y, x + 1):
-                count += 1
+        if self.is_cell_alive(y, x + 1):
+            count += 1
 
-        if x > 0 and self.is_in_bounds(y + 1, x - 1):
-            if self.is_cell_alive(y + 1, x - 1):
-                count += 1
+        if self.is_cell_alive(y + 1, x - 1):
+            count += 1
 
-        if self.is_in_bounds(y + 1, x):
-            if self.is_cell_alive(y + 1, x):
-                count += 1
+        if self.is_cell_alive(y + 1, x):
+            count += 1
 
-        if self.is_in_bounds(y + 1, x + 1):
-            if self.is_cell_alive(y + 1, x + 1):
-                count += 1
+        if self.is_cell_alive(y + 1, x + 1):
+            count += 1
 
         return count
 
@@ -46,6 +39,9 @@ class Grid:
         return (0 <= y < len(self.grid)) and (0 <= x < len(self.grid[y]))
 
     def is_cell_alive(self, y, x):
+        if not self.is_in_bounds(y, x):
+            return False
+
         return self.grid[y][x] == 1
 
     def is_dead(self):
