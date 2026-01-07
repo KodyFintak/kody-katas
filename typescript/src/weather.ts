@@ -13,8 +13,13 @@ export interface WeatherData {
   precipitation: number
 }
 
+interface Coordinates {
+  latitude: number
+  longitude: number
+}
+
 interface GeocodingResponse {
-  results: { latitude: number; longitude: number }[]
+  results: Coordinates[]
 }
 
 interface WeatherResponse {
