@@ -13,9 +13,17 @@ export interface WeatherData {
   precipitation: number
 }
 
+interface GeocodingResponse {
+  results: { latitude: number; longitude: number }[]
+}
+
+interface WeatherResponse {
+  current: { temperature_2m: number; apparent_temperature: number; precipitation: number }
+}
+
 interface NullableResponses {
-  geocoding: { results: { latitude: number; longitude: number }[] }
-  weather: { current: { temperature_2m: number; apparent_temperature: number; precipitation: number } }
+  geocoding: GeocodingResponse
+  weather: WeatherResponse
 }
 
 export function formatWeatherOutput(city: string, weather: WeatherData): string {
@@ -55,7 +63,7 @@ export class WeatherService {
 
     const geoResponse = await this.httpClient.fetch(
       `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1`
-    ) as { results: { latitude: number; longitude: number }[] }
+    ) as GeocodingResponse
 
     if (!geoResponse.results || geoResponse.results.length === 0) {
       throw new Error('City not found')
@@ -65,7 +73,7 @@ export class WeatherService {
 
     const weatherResponse = await this.httpClient.fetch(
       `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,apparent_temperature,precipitation&temperature_unit=fahrenheit`
-    ) as { current: { temperature_2m: number; apparent_temperature: number; precipitation: number } }
+    ) as WeatherResponse
 
     return {
       temperature: weatherResponse.current.temperature_2m,
