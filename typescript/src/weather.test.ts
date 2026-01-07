@@ -3,7 +3,11 @@ import { WeatherService, createNullableHttpClient, formatWeatherOutput } from '.
 
 describe('WeatherService', () => {
   it('throws an error for empty city name', async () => {
-    const service = new WeatherService()
+    const httpClient = createNullableHttpClient({
+      geocoding: { results: [] },
+      weather: { current: { temperature_2m: 0, apparent_temperature: 0, precipitation: 0 } }
+    })
+    const service = new WeatherService(httpClient)
 
     await expect(service.getWeather('')).rejects.toThrow('City name is required')
   })
@@ -21,7 +25,7 @@ describe('WeatherService', () => {
   it('returns temperature in Fahrenheit for valid city', async () => {
     const httpClient = createNullableHttpClient({
       geocoding: { results: [{ latitude: 40.7128, longitude: -74.006 }] },
-      weather: { current: { temperature_2m: 72.5 } }
+      weather: { current: { temperature_2m: 72.5, apparent_temperature: 70, precipitation: 0 } }
     })
     const service = new WeatherService(httpClient)
 
@@ -33,7 +37,7 @@ describe('WeatherService', () => {
   it('returns wind chill for valid city', async () => {
     const httpClient = createNullableHttpClient({
       geocoding: { results: [{ latitude: 40.7128, longitude: -74.006 }] },
-      weather: { current: { temperature_2m: 72.5, apparent_temperature: 68.0 } }
+      weather: { current: { temperature_2m: 72.5, apparent_temperature: 68.0, precipitation: 0 } }
     })
     const service = new WeatherService(httpClient)
 

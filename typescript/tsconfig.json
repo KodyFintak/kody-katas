@@ -3,12 +3,12 @@
     "target": "ES2020",
     "module": "ES2020",
     "moduleResolution": "node",
-    "types": [],
+    "types": ["vitest/globals"],
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["src/**/*.test.ts", "node_modules"]
+  "include": ["src/**/*", "tests/**/*"],
+  "exclude": ["node_modules"]
 }
