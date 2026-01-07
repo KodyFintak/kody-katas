@@ -4,7 +4,8 @@
   "type": "module",
   "description": "package to use when doing katas",
   "scripts": {
-    "test": "vitest run"
+    "test": "vitest run",
+    "compile": "tsc --noEmit"
   },
   "devDependencies": {
     "prettier": "^3.5.3",

@@ -1,3 +1,8 @@
+declare const process: {
+  argv: string[]
+  exit(code: number): never
+}
+
 export interface HttpClient {
   fetch(url: string): Promise<unknown>
 }
