@@ -66,15 +66,7 @@ export class WeatherService {
       throw new Error('City name is required')
     }
 
-    const geoResponse = await this.httpClient.fetch(
-      `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1`
-    ) as GeocodingResponse
-
-    if (!geoResponse.results || geoResponse.results.length === 0) {
-      throw new Error('City not found')
-    }
-
-    const { latitude, longitude } = geoResponse.results[0]
+    const { latitude, longitude } = await this.lookupCoordinates(city)
 
     const weatherResponse = await this.httpClient.fetch(
       `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,apparent_temperature,precipitation&temperature_unit=fahrenheit`
@@ -85,6 +77,18 @@ export class WeatherService {
       windChill: weatherResponse.current.apparent_temperature,
       precipitation: weatherResponse.current.precipitation
     }
+  }
+
+  private async lookupCoordinates(city: string): Promise<Coordinates> {
+    const response = await this.httpClient.fetch(
+      `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1`
+    ) as GeocodingResponse
+
+    if (!response.results || response.results.length === 0) {
+      throw new Error('City not found')
+    }
+
+    return response.results[0]
   }
 }
 
