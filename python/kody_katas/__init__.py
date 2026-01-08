@@ -9,8 +9,11 @@ class Grid:
     def count_live_neighbours_for_cell(self, y, x):
         count = 0
 
-        if self.is_cell_alive(y - 1, x - 1):
-            count += 1
+        for coords in [
+            (y - 1, x - 1)
+        ]:
+            if self.is_cell_alive(coords[0], coords[1]):
+                count += 1
 
         if self.is_cell_alive(y - 1, x):
             count += 1
