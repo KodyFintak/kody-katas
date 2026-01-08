@@ -78,12 +78,12 @@ class Test(TestCase):
         expected_grid = [
             [0, 0, 0, 0],
             [0, 0, 0, 0],
-            [0, 0, 0, 1],
+            [0, 0, 1, 1],
             [0, 0, 1, 1],
         ]
         self.assertEqual(expected_grid, grid.next_iteration())
 
-    def test_properly_populated_cell_lives_on(self):
+    def test_other_grid_next_iteration(self):
         grid = Grid([
             [0, 1, 0],
             [1, 1, 0],
