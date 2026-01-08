@@ -9,7 +9,14 @@ class Grid:
     def count_live_neighbours_for_cell(self, y, x):
         count = 0
 
-        for coords in [
+        for coords in self.get_neighbour_coordinates(y, x):
+            if self.is_cell_alive(coords[0], coords[1]):
+                count += 1
+
+        return count
+
+    def get_neighbour_coordinates(self, y, x):
+        return [
             (y - 1, x - 1),
             (y - 1, x),
             (y - 1, x + 1),
@@ -18,11 +25,8 @@ class Grid:
             (y + 1, x - 1),
             (y + 1, x),
             (y + 1, x + 1)
-        ]:
-            if self.is_cell_alive(coords[0], coords[1]):
-                count += 1
+        ]
 
-        return count
 
     def is_in_bounds(self, y, x):
         return (0 <= y < len(self.grid)) and (0 <= x < len(self.grid[y]))
