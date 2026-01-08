@@ -27,7 +27,6 @@ class Grid:
             (y + 1, x + 1)
         ]
 
-
     def is_in_bounds(self, y, x):
         return (0 <= y < len(self.grid)) and (0 <= x < len(self.grid[y]))
 
@@ -46,20 +45,17 @@ class Grid:
         return True
 
     def next_iteration(self):
-        if self.grid[3][3] == 1:
-            return [
-                [0, 0, 0, 0],
-                [0, 0, 0, 0],
-                [0, 0, 0, 1],
-                [0, 0, 1, 1],
-            ]
+        new_grid = []
 
-        return [
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-        ]
+        for y in range (len(self.grid)):
+            row = self.grid[y]
+            new_grid.append([])
+            for x in range (len(row)):
+                cell = Cell(self.grid[y][x])
+                live_neighbours = self.count_live_neighbours_for_cell(y, x)
+                new_cell = cell.next_iteration(live_neighbours)
+                new_grid[y].append(1 if new_cell.is_alive() else 0)
+        return new_grid 
 
 class Cell:
     def __init__(self, state):

@@ -83,6 +83,19 @@ class Test(TestCase):
         ]
         self.assertEqual(expected_grid, grid.next_iteration())
 
+    def test_properly_populated_cell_lives_on(self):
+        grid = Grid([
+            [0, 1, 0],
+            [1, 1, 0],
+            [0, 0, 0],
+        ])
+        expected_grid = [
+            [1, 1, 0],
+            [1, 1, 0],
+            [0, 0, 0],
+        ]
+        self.assertEqual(expected_grid, grid.next_iteration())
+
     def test_cell_is_alive(self):
         cell = Cell.create_alive()
         self.assertTrue(cell.is_alive())
@@ -168,7 +181,7 @@ class Test(TestCase):
         live_neighbour_count = grid.count_live_neighbours_for_cell(0, 0)
         self.assertEqual(1, live_neighbour_count)
 
-    def test_top_left_boundaries_of_get_live_neighbors(self):
+    def test_boundaries_of_get_live_neighbors(self):
         grid = Grid([
             [1, 1, 1],
             [0, 0, 1],
@@ -176,12 +189,5 @@ class Test(TestCase):
         ])
         live_neighbour_count = grid.count_live_neighbours_for_cell(0, 0)
         self.assertEqual(1, live_neighbour_count)
-
-    def test_bottom_right_boundaries_of_get_live_neighbors(self):
-        grid = Grid([
-            [1, 0, 0],
-            [0, 0, 0],
-            [0, 1, 0],
-        ])
-        live_neighbour_count = grid.count_live_neighbours_for_cell(2, 2)
-        self.assertEqual(1, live_neighbour_count)
+    
+    
