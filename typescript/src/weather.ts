@@ -112,36 +112,15 @@ export class WeatherApiClientFactory {
 }
 
 export class WeatherService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private apiClient: WeatherApiClient) {}
 
   async getWeather(city: string): Promise<WeatherData> {
     if (!city) {
       throw new Error('City name is required')
     }
 
-    const { latitude, longitude } = await this.lookupCoordinates(city)
-
-    const weatherResponse = await this.httpClient.fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,apparent_temperature,precipitation&temperature_unit=fahrenheit`
-    ) as WeatherResponse
-
-    return {
-      temperature: weatherResponse.current.temperature_2m,
-      windChill: weatherResponse.current.apparent_temperature,
-      precipitation: weatherResponse.current.precipitation
-    }
-  }
-
-  private async lookupCoordinates(city: string): Promise<Coordinates> {
-    const response = await this.httpClient.fetch(
-      `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1`
-    ) as GeocodingResponse
-
-    if (!response.results || response.results.length === 0) {
-      throw new Error('City not found')
-    }
-
-    return response.results[0]
+    const coordinates = await this.apiClient.lookupCoordinates(city)
+    return this.apiClient.fetchWeather(coordinates)
   }
 }
 
@@ -152,8 +131,8 @@ export async function main(args: string[]): Promise<void> {
     process.exit(1)
   }
 
-  const httpClient = HttpClientFactory.create()
-  const service = new WeatherService(httpClient)
+  const apiClient = WeatherApiClientFactory.create()
+  const service = new WeatherService(apiClient)
 
   try {
     const weather = await service.getWeather(city)

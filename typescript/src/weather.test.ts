@@ -1,33 +1,33 @@
 import { describe, it, expect } from 'vitest'
-import { WeatherService, HttpClientFactory, formatWeatherOutput } from './weather'
+import { WeatherService, WeatherApiClientFactory, formatWeatherOutput } from './weather'
 
 describe('WeatherService', () => {
   it('throws an error for empty city name', async () => {
-    const httpClient = HttpClientFactory.createNull({
-      geocoding: { results: [] },
-      weather: { current: { temperature_2m: 0, apparent_temperature: 0, precipitation: 0 } }
+    const apiClient = WeatherApiClientFactory.createNull({
+      coordinates: null,
+      weather: { temperature: 0, windChill: 0, precipitation: 0 }
     })
-    const service = new WeatherService(httpClient)
+    const service = new WeatherService(apiClient)
 
     await expect(service.getWeather('')).rejects.toThrow('City name is required')
   })
 
   it('throws an error when city is not found', async () => {
-    const httpClient = HttpClientFactory.createNull({
-      geocoding: { results: [] },
-      weather: { current: { temperature_2m: 0, apparent_temperature: 0, precipitation: 0 } }
+    const apiClient = WeatherApiClientFactory.createNull({
+      coordinates: null,
+      weather: { temperature: 0, windChill: 0, precipitation: 0 }
     })
-    const service = new WeatherService(httpClient)
+    const service = new WeatherService(apiClient)
 
     await expect(service.getWeather('NonexistentCity123')).rejects.toThrow('City not found')
   })
 
   it('returns temperature in Fahrenheit for valid city', async () => {
-    const httpClient = HttpClientFactory.createNull({
-      geocoding: { results: [{ latitude: 40.7128, longitude: -74.006 }] },
-      weather: { current: { temperature_2m: 72.5, apparent_temperature: 70, precipitation: 0 } }
+    const apiClient = WeatherApiClientFactory.createNull({
+      coordinates: { latitude: 40.7128, longitude: -74.006 },
+      weather: { temperature: 72.5, windChill: 70, precipitation: 0 }
     })
-    const service = new WeatherService(httpClient)
+    const service = new WeatherService(apiClient)
 
     const weather = await service.getWeather('New York')
 
@@ -35,11 +35,11 @@ describe('WeatherService', () => {
   })
 
   it('returns wind chill for valid city', async () => {
-    const httpClient = HttpClientFactory.createNull({
-      geocoding: { results: [{ latitude: 40.7128, longitude: -74.006 }] },
-      weather: { current: { temperature_2m: 72.5, apparent_temperature: 68.0, precipitation: 0 } }
+    const apiClient = WeatherApiClientFactory.createNull({
+      coordinates: { latitude: 40.7128, longitude: -74.006 },
+      weather: { temperature: 72.5, windChill: 68.0, precipitation: 0 }
     })
-    const service = new WeatherService(httpClient)
+    const service = new WeatherService(apiClient)
 
     const weather = await service.getWeather('New York')
 
@@ -47,11 +47,11 @@ describe('WeatherService', () => {
   })
 
   it('returns precipitation for valid city', async () => {
-    const httpClient = HttpClientFactory.createNull({
-      geocoding: { results: [{ latitude: 40.7128, longitude: -74.006 }] },
-      weather: { current: { temperature_2m: 72.5, apparent_temperature: 68.0, precipitation: 0.25 } }
+    const apiClient = WeatherApiClientFactory.createNull({
+      coordinates: { latitude: 40.7128, longitude: -74.006 },
+      weather: { temperature: 72.5, windChill: 68.0, precipitation: 0.25 }
     })
-    const service = new WeatherService(httpClient)
+    const service = new WeatherService(apiClient)
 
     const weather = await service.getWeather('New York')
 
