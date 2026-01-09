@@ -3,7 +3,7 @@ declare const process: {
   exit(code: number): never
 }
 
-export interface HttpClient {
+interface HttpClient {
   fetch(url: string): Promise<unknown>
 }
 
@@ -26,11 +26,6 @@ interface WeatherResponse {
   current: { temperature_2m: number; apparent_temperature: number; precipitation: number }
 }
 
-interface NullableResponses {
-  geocoding: GeocodingResponse
-  weather: WeatherResponse
-}
-
 export function formatWeatherOutput(city: string, weather: WeatherData): string {
   return `Weather for ${city}:
   Temperature: ${weather.temperature}°F
@@ -38,23 +33,12 @@ export function formatWeatherOutput(city: string, weather: WeatherData): string 
   Precipitation: ${weather.precipitation} in`
 }
 
-export class HttpClientFactory {
+class HttpClientFactory {
   static create(): HttpClient {
     return {
       async fetch(url: string): Promise<unknown> {
         const response = await fetch(url)
         return response.json()
-      }
-    }
-  }
-
-  static createNull(responses: NullableResponses): HttpClient {
-    return {
-      async fetch(url: string): Promise<unknown> {
-        if (url.includes('geocoding')) {
-          return responses.geocoding
-        }
-        return responses.weather
       }
     }
   }
