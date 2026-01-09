@@ -121,7 +121,7 @@ export async function main(args: string[]): Promise<void> {
     process.exit(1)
   }
 
-  const httpClient = createHttpClient()
+  const httpClient = HttpClientFactory.create()
   const service = new WeatherService(httpClient)
 
   try {
