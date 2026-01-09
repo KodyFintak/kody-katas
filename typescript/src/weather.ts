@@ -60,6 +60,57 @@ export class HttpClientFactory {
   }
 }
 
+export interface WeatherApiClient {
+  lookupCoordinates(city: string): Promise<Coordinates>
+  fetchWeather(coordinates: Coordinates): Promise<WeatherData>
+}
+
+interface NullableWeatherData {
+  coordinates: Coordinates | null
+  weather: WeatherData
+}
+
+export class WeatherApiClientFactory {
+  static create(): WeatherApiClient {
+    const httpClient = HttpClientFactory.create()
+    return {
+      async lookupCoordinates(city: string): Promise<Coordinates> {
+        const response = await httpClient.fetch(
+          `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1`
+        ) as GeocodingResponse
+        if (!response.results || response.results.length === 0) {
+          throw new Error('City not found')
+        }
+        return response.results[0]
+      },
+      async fetchWeather(coordinates: Coordinates): Promise<WeatherData> {
+        const response = await httpClient.fetch(
+          `https://api.open-meteo.com/v1/forecast?latitude=${coordinates.latitude}&longitude=${coordinates.longitude}&current=temperature_2m,apparent_temperature,precipitation&temperature_unit=fahrenheit`
+        ) as WeatherResponse
+        return {
+          temperature: response.current.temperature_2m,
+          windChill: response.current.apparent_temperature,
+          precipitation: response.current.precipitation
+        }
+      }
+    }
+  }
+
+  static createNull(data: NullableWeatherData): WeatherApiClient {
+    return {
+      async lookupCoordinates(_city: string): Promise<Coordinates> {
+        if (!data.coordinates) {
+          throw new Error('City not found')
+        }
+        return data.coordinates
+      },
+      async fetchWeather(_coordinates: Coordinates): Promise<WeatherData> {
+        return data.weather
+      }
+    }
+  }
+}
+
 export class WeatherService {
   constructor(private httpClient: HttpClient) {}
 
