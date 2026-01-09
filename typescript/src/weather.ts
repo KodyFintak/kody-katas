@@ -38,15 +38,6 @@ export function formatWeatherOutput(city: string, weather: WeatherData): string 
   Precipitation: ${weather.precipitation} in`
 }
 
-export function createHttpClient(): HttpClient {
-  return {
-    async fetch(url: string): Promise<unknown> {
-      const response = await fetch(url)
-      return response.json()
-    }
-  }
-}
-
 export function createNullableHttpClient(responses: NullableResponses): HttpClient {
   return {
     async fetch(url: string): Promise<unknown> {
