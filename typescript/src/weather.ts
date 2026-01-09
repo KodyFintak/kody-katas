@@ -38,17 +38,6 @@ export function formatWeatherOutput(city: string, weather: WeatherData): string 
   Precipitation: ${weather.precipitation} in`
 }
 
-export function createNullableHttpClient(responses: NullableResponses): HttpClient {
-  return {
-    async fetch(url: string): Promise<unknown> {
-      if (url.includes('geocoding')) {
-        return responses.geocoding
-      }
-      return responses.weather
-    }
-  }
-}
-
 export class HttpClientFactory {
   static create(): HttpClient {
     return {
