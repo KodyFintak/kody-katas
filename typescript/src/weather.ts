@@ -3,16 +3,6 @@ declare const process: {
   exit(code: number): never
 }
 
-export interface HttpClient {
-  fetch(url: string): Promise<unknown>
-}
-
-export interface WeatherData {
-  temperature: number
-  windChill: number
-  precipitation: number
-}
-
 interface Coordinates {
   latitude: number
   longitude: number
@@ -31,31 +21,41 @@ interface NullableResponses {
   weather: WeatherResponse
 }
 
+export class HttpClient {
+  private constructor(private fetchFn: (url: string) => Promise<unknown>) {}
+
+  async fetch(url: string): Promise<unknown> {
+    return this.fetchFn(url)
+  }
+
+  static create(): HttpClient {
+    return new HttpClient(async (url: string) => {
+      const response = await fetch(url)
+      return response.json()
+    })
+  }
+
+  static createNull(responses: NullableResponses): HttpClient {
+    return new HttpClient(async (url: string) => {
+      if (url.includes('geocoding')) {
+        return responses.geocoding
+      }
+      return responses.weather
+    })
+  }
+}
+
+export interface WeatherData {
+  temperature: number
+  windChill: number
+  precipitation: number
+}
+
 export function formatWeatherOutput(city: string, weather: WeatherData): string {
   return `Weather for ${city}:
   Temperature: ${weather.temperature}°F
   Feels like: ${weather.windChill}°F
   Precipitation: ${weather.precipitation} in`
-}
-
-export function createHttpClient(): HttpClient {
-  return {
-    async fetch(url: string): Promise<unknown> {
-      const response = await fetch(url)
-      return response.json()
-    }
-  }
-}
-
-export function createNullableHttpClient(responses: NullableResponses): HttpClient {
-  return {
-    async fetch(url: string): Promise<unknown> {
-      if (url.includes('geocoding')) {
-        return responses.geocoding
-      }
-      return responses.weather
-    }
-  }
 }
 
 export class WeatherService {
@@ -99,7 +99,7 @@ export async function main(args: string[]): Promise<void> {
     process.exit(1)
   }
 
-  const httpClient = createHttpClient()
+  const httpClient = HttpClient.create()
   const service = new WeatherService(httpClient)
 
   try {

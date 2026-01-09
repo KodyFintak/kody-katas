@@ -1,9 +1,9 @@
 import { describe, it, expect } from 'vitest'
-import { WeatherService, createNullableHttpClient, formatWeatherOutput } from './weather'
+import { WeatherService, HttpClient, formatWeatherOutput } from './weather'
 
 describe('WeatherService', () => {
   it('throws an error for empty city name', async () => {
-    const httpClient = createNullableHttpClient({
+    const httpClient = HttpClient.createNull({
       geocoding: { results: [] },
       weather: { current: { temperature_2m: 0, apparent_temperature: 0, precipitation: 0 } }
     })
@@ -13,7 +13,7 @@ describe('WeatherService', () => {
   })
 
   it('throws an error when city is not found', async () => {
-    const httpClient = createNullableHttpClient({
+    const httpClient = HttpClient.createNull({
       geocoding: { results: [] },
       weather: { current: { temperature_2m: 0, apparent_temperature: 0, precipitation: 0 } }
     })
@@ -23,7 +23,7 @@ describe('WeatherService', () => {
   })
 
   it('returns temperature in Fahrenheit for valid city', async () => {
-    const httpClient = createNullableHttpClient({
+    const httpClient = HttpClient.createNull({
       geocoding: { results: [{ latitude: 40.7128, longitude: -74.006 }] },
       weather: { current: { temperature_2m: 72.5, apparent_temperature: 70, precipitation: 0 } }
     })
@@ -35,7 +35,7 @@ describe('WeatherService', () => {
   })
 
   it('returns wind chill for valid city', async () => {
-    const httpClient = createNullableHttpClient({
+    const httpClient = HttpClient.createNull({
       geocoding: { results: [{ latitude: 40.7128, longitude: -74.006 }] },
       weather: { current: { temperature_2m: 72.5, apparent_temperature: 68.0, precipitation: 0 } }
     })
@@ -47,7 +47,7 @@ describe('WeatherService', () => {
   })
 
   it('returns precipitation for valid city', async () => {
-    const httpClient = createNullableHttpClient({
+    const httpClient = HttpClient.createNull({
       geocoding: { results: [{ latitude: 40.7128, longitude: -74.006 }] },
       weather: { current: { temperature_2m: 72.5, apparent_temperature: 68.0, precipitation: 0.25 } }
     })
