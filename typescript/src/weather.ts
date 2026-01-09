@@ -58,6 +58,28 @@ export function createNullableHttpClient(responses: NullableResponses): HttpClie
   }
 }
 
+export class HttpClientFactory {
+  static create(): HttpClient {
+    return {
+      async fetch(url: string): Promise<unknown> {
+        const response = await fetch(url)
+        return response.json()
+      }
+    }
+  }
+
+  static createNull(responses: NullableResponses): HttpClient {
+    return {
+      async fetch(url: string): Promise<unknown> {
+        if (url.includes('geocoding')) {
+          return responses.geocoding
+        }
+        return responses.weather
+      }
+    }
+  }
+}
+
 export class WeatherService {
   constructor(private httpClient: HttpClient) {}
 
