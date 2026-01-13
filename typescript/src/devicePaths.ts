@@ -1,3 +1,7 @@
+function lastNode(path: string[]): string {
+  return path[path.length - 1];
+}
+
 export function findPath(
   connections: Record<string, string[]>,
   start: string,
@@ -8,7 +12,7 @@ export function findPath(
 
   while (queue.length > 0) {
     const path = queue.shift()!;
-    const current = path[path.length - 1];
+    const current = lastNode(path);
 
     if (current === end) {
       return path;
