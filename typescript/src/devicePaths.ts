@@ -2,6 +2,15 @@ function lastNode(path: string[]): string {
   return path[path.length - 1];
 }
 
+function unvisitedNeighbors(
+  connections: Record<string, string[]>,
+  node: string,
+  visited: Set<string>
+): string[] {
+  const neighbors = connections[node] || [];
+  return neighbors.filter((n) => !visited.has(n));
+}
+
 export function findPath(
   connections: Record<string, string[]>,
   start: string,
@@ -23,11 +32,8 @@ export function findPath(
     }
     visited.add(current);
 
-    const neighbors = connections[current] || [];
-    for (const neighbor of neighbors) {
-      if (!visited.has(neighbor)) {
-        queue.push([...path, neighbor]);
-      }
+    for (const neighbor of unvisitedNeighbors(connections, current, visited)) {
+      queue.push([...path, neighbor]);
     }
   }
 
