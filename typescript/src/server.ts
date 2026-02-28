@@ -10,11 +10,20 @@ export function startServer({ port = 3000, hostname = 'localhost' }: ServerOptio
     console.log(request.method);
     console.log(request.headers);
 
+    if (request.method === 'OPTIONS') {
+      response.setHeader('allowed', 'OPTIONS, GET, HEAD');
+      response.end();
+      return;
+    }
+
     if (request.method === 'GET') {
       response.statusCode = 200;
       response.setHeader('content-type', 'text/plain');
       response.end('Hello World!');
       return;
+    }
+
+    if (request.method === 'HEAD') {
     }
 
     response.statusCode = 405;
