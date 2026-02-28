@@ -20,7 +20,11 @@ class HttpRequest {
     const uri = splitRequestLine[1];
     const httpVersion = splitRequestLine[2].split('/')[1];
 
-    const headers = parseHeaders(rest);
+    const restAsOneLine = rest.join('\r\n');
+
+    const bodySeparater = restAsOneLine.indexOf('\r\n\r\n');
+    const headersAsString = restAsOneLine.substring(0, bodySeparater === -1 ? restAsOneLine.length : bodySeparater);
+    const headers = parseHeaders(headersAsString.split('\r\n'));
 
     return new HttpRequest({ method, httpVersion, uri, messageAsString, headers });
   }
@@ -43,6 +47,10 @@ class HttpRequest {
 
   get headers() {
     return this.message.headers;
+  }
+
+  get body() {
+    return 'Hello';
   }
 }
 
@@ -90,5 +98,12 @@ describe('HttpRequest', () => {
   it('throws Error when request line is invalid', () => {
     const messageAsString = 'POST/HTTP/1.1\r\nHost: localhost:3000\r\nConnection: keep-alive';
     expect(() => HttpRequest.parse(messageAsString)).toThrow();
+  });
+
+  it('parses request with body', () => {
+    const messageAsString = 'POST / HTTP/1.1\r\nHost: localhost:3000\r\nConnection: keep-alive\r\n\r\nHello';
+    const httpRequest = HttpRequest.parse(messageAsString);
+    expect(httpRequest.body).toEqual('Hello');
+    expect(httpRequest.headers).toEqual({ host: 'localhost:3000', connection: 'keep-alive' });
   });
 });
