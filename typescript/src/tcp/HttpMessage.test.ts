@@ -22,8 +22,7 @@ class HttpRequest {
 
     const restAsOneLine = rest.join('\r\n');
 
-    const bodySeparater = restAsOneLine.indexOf('\r\n\r\n');
-    const headersAsString = restAsOneLine.substring(0, bodySeparater === -1 ? restAsOneLine.length : bodySeparater);
+    const headersAsString = restAsOneLine.substring(0, restAsOneLine.indexOf('\r\n\r\n'));
     const headers = parseHeaders(headersAsString.split('\r\n'));
 
     return new HttpRequest({ method, httpVersion, uri, messageAsString, headers });
@@ -68,7 +67,7 @@ function parseHeaders(headerLines: string[]) {
 
 describe('HttpRequest', () => {
   it('parses GET HTTP message', () => {
-    const messageAsString = 'GET / HTTP/1.1\r\nHost: localhost:3000\r\nConnection: keep-alive';
+    const messageAsString = 'GET / HTTP/1.1\r\nHost: localhost:3000\r\nConnection: keep-alive\r\n\r\n';
     const httpRequest = HttpRequest.parse(messageAsString);
     expect(httpRequest.method).toEqual('GET');
     expect(httpRequest.uri).toEqual('/');
@@ -78,25 +77,25 @@ describe('HttpRequest', () => {
   });
 
   it('parses POST HTTP message', () => {
-    const messageAsString = 'POST / HTTP/1.1\r\nHost: localhost:3000\r\nConnection: keep-alive';
+    const messageAsString = 'POST / HTTP/1.1\r\nHost: localhost:3000\r\nConnection: keep-alive\r\n\r\n';
     const httpRequest = HttpRequest.parse(messageAsString);
     expect(httpRequest.method).toEqual('POST');
   });
 
   it('parses HTTP 1.2 message', () => {
-    const messageAsString = 'POST / HTTP/1.2\r\nHost: localhost:3000\r\nConnection: keep-alive';
+    const messageAsString = 'POST / HTTP/1.2\r\nHost: localhost:3000\r\nConnection: keep-alive\r\n\r\n';
     const httpRequest = HttpRequest.parse(messageAsString);
     expect(httpRequest.version).toEqual('1.2');
   });
 
   it('parses /cat/hello message', () => {
-    const messageAsString = 'GET /cat/hello HTTP/1.1\r\nHost: localhost:3000\r\nConnection: keep-alive';
+    const messageAsString = 'GET /cat/hello HTTP/1.1\r\nHost: localhost:3000\r\nConnection: keep-alive\r\n\r\n';
     const httpRequest = HttpRequest.parse(messageAsString);
     expect(httpRequest.uri).toEqual('/cat/hello');
   });
 
   it('throws Error when request line is invalid', () => {
-    const messageAsString = 'POST/HTTP/1.1\r\nHost: localhost:3000\r\nConnection: keep-alive';
+    const messageAsString = 'POST/HTTP/1.1\r\nHost: localhost:3000\r\nConnection: keep-alive\r\n\r\n';
     expect(() => HttpRequest.parse(messageAsString)).toThrow();
   });
 
