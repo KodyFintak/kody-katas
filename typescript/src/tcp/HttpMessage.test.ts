@@ -1,9 +1,5 @@
 class HttpMessage {
-  constructor(
-    private _method: string,
-    private _httpVersion: string,
-    private _uri: string
-  ) {}
+  constructor(private message: { method: string; uri: string; httpVersion: string }) {}
 
   static parse(messageAsString: string): HttpMessage {
     const lines = messageAsString.split('\r\n');
@@ -17,19 +13,19 @@ class HttpMessage {
     const uri = splitRequestLine[1];
     const httpVersion = splitRequestLine[2].split('/')[1];
 
-    return new HttpMessage(method, httpVersion, uri);
+    return new HttpMessage({ method, httpVersion, uri });
   }
 
   get method() {
-    return this._method;
+    return this.message.method;
   }
 
   get version() {
-    return this._httpVersion;
+    return this.message.httpVersion;
   }
 
   get uri() {
-    return this._uri;
+    return this.message.uri;
   }
 }
 
