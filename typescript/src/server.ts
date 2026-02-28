@@ -7,8 +7,7 @@ export interface ServerOptions {
 
 export function startServer({ port = 3000, hostname = 'localhost' }: ServerOptions = {}) {
   const server = http.createServer((request: http.IncomingMessage, response: http.ServerResponse) => {
-    console.log(request.method);
-    console.log(request.headers);
+    console.log(JSON.stringify({ method: request.method, headers: request.headers }));
 
     if (request.method === 'OPTIONS') {
       response.setHeader('allowed', 'OPTIONS, GET, HEAD');
@@ -24,6 +23,9 @@ export function startServer({ port = 3000, hostname = 'localhost' }: ServerOptio
     }
 
     if (request.method === 'HEAD') {
+      response.statusCode = 204;
+      response.end();
+      return;
     }
 
     response.statusCode = 405;

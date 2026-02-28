@@ -14,6 +14,19 @@ describe('spike client test', () => {
     console.log(JSON.stringify(response, null, 2));
   });
 
+  it('gets headers via HEAD', async () => {
+    const request: HttpRequest = {
+      hostname: 'localhost',
+      port: 3000,
+      path: '/',
+      method: 'HEAD'
+    };
+    const client = new HttpClient();
+    const response = await client.sendRequest(request);
+    expect(response.status).toEqual(204);
+    expect(Object.keys(response.headers)).toContain('date');
+  });
+
   it('get list of options via OPTIONS', async () => {
     const request: HttpRequest = {
       hostname: 'localhost',
