@@ -27,8 +27,8 @@ describe('spike client test', () => {
     };
     const client = new HttpClient();
     const response = await client.sendRequest(request);
-    expect(response.status).toEqual(204);
-    expect(Object.keys(response.headers)).toContain('date');
+    expect(response.status).toEqual(200);
+    expect(response.headers['content-length']).toEqual('12');
   });
 
   it('get list of options via OPTIONS', async () => {

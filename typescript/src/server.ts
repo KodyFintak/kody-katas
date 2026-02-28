@@ -16,14 +16,15 @@ export function startServer({ port = 3000, hostname = 'localhost' }: ServerOptio
     }
 
     if (request.method === 'GET') {
-      response.statusCode = 204;
+      response.statusCode = 200;
       response.setHeader('content-type', 'text/plain');
       response.end('Hello World!');
       return;
     }
 
     if (request.method === 'HEAD') {
-      response.statusCode = 204;
+      response.statusCode = 200;
+      response.setHeader('content-length', 12);
       response.end();
       return;
     }
