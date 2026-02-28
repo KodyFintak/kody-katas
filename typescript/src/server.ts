@@ -7,6 +7,9 @@ export interface ServerOptions {
 
 export function startServer({ port = 3000, hostname = 'localhost' }: ServerOptions = {}) {
   const server = http.createServer((request: http.IncomingMessage, response: http.ServerResponse) => {
+    console.log(request.method);
+    console.log(request.headers);
+
     if (request.method === 'GET') {
       response.statusCode = 200;
       response.setHeader('content-type', 'text/plain');

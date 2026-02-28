@@ -13,4 +13,16 @@ describe('spike client test', () => {
     const response = await client.sendRequest(request);
     console.log(JSON.stringify(response, null, 2));
   });
+
+  it('fails on not accepted method', async () => {
+    const request: HttpRequest = {
+      hostname: 'localhost',
+      port: 3000,
+      path: '/',
+      method: 'PATCH'
+    };
+    const client = new HttpClient();
+    const response = await client.sendRequest(request);
+    console.log(JSON.stringify(response, null, 2));
+  });
 });
