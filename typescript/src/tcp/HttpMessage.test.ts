@@ -1,7 +1,7 @@
-class HttpMessage {
+class HttpRequest {
   constructor(private message: { method: string; httpVersion: string; uri: string; messageAsString: string }) {}
 
-  static parse(messageAsString: string): HttpMessage {
+  static parse(messageAsString: string): HttpRequest {
     const lines = messageAsString.split('\r\n');
     const requestLine = lines[0];
 
@@ -13,7 +13,7 @@ class HttpMessage {
     const uri = splitRequestLine[1];
     const httpVersion = splitRequestLine[2].split('/')[1];
 
-    return new HttpMessage({ method, httpVersion, uri, messageAsString });
+    return new HttpRequest({ method, httpVersion, uri, messageAsString });
   }
 
   get method() {
@@ -33,36 +33,36 @@ class HttpMessage {
   }
 }
 
-describe('HttpMessage', () => {
+describe('HttpRequest', () => {
   it('parses GET HTTP message', () => {
     const messageAsString = 'GET / HTTP/1.1\r\nHost: localhost:3000\r\nConnection: keep-alive';
-    const httpMessage = HttpMessage.parse(messageAsString);
-    expect(httpMessage.method).toEqual('GET');
-    expect(httpMessage.uri).toEqual('/');
-    expect(httpMessage.version).toEqual('1.1');
-    expect(httpMessage.toString()).toEqual(messageAsString);
+    const httpRequest = HttpRequest.parse(messageAsString);
+    expect(httpRequest.method).toEqual('GET');
+    expect(httpRequest.uri).toEqual('/');
+    expect(httpRequest.version).toEqual('1.1');
+    expect(httpRequest.toString()).toEqual(messageAsString);
   });
 
   it('parses POST HTTP message', () => {
     const messageAsString = 'POST / HTTP/1.1\r\nHost: localhost:3000\r\nConnection: keep-alive';
-    const httpMessage = HttpMessage.parse(messageAsString);
-    expect(httpMessage.method).toEqual('POST');
+    const httpRequest = HttpRequest.parse(messageAsString);
+    expect(httpRequest.method).toEqual('POST');
   });
 
   it('parses HTTP 1.2 message', () => {
     const messageAsString = 'POST / HTTP/1.2\r\nHost: localhost:3000\r\nConnection: keep-alive';
-    const httpMessage = HttpMessage.parse(messageAsString);
-    expect(httpMessage.version).toEqual('1.2');
+    const httpRequest = HttpRequest.parse(messageAsString);
+    expect(httpRequest.version).toEqual('1.2');
   });
 
   it('parses /cat/hello message', () => {
     const messageAsString = 'GET /cat/hello HTTP/1.1\r\nHost: localhost:3000\r\nConnection: keep-alive';
-    const httpMessage = HttpMessage.parse(messageAsString);
-    expect(httpMessage.uri).toEqual('/cat/hello');
+    const httpRequest = HttpRequest.parse(messageAsString);
+    expect(httpRequest.uri).toEqual('/cat/hello');
   });
 
   it('throws Error when request line is invalid', () => {
     const messageAsString = 'POST/HTTP/1.1\r\nHost: localhost:3000\r\nConnection: keep-alive';
-    expect(() => HttpMessage.parse(messageAsString)).toThrow();
+    expect(() => HttpRequest.parse(messageAsString)).toThrow();
   });
 });
