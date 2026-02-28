@@ -7,6 +7,9 @@ export class HttpClient {
     const response = await this.http.send(request);
     return { status: response.statusCode };
   }
+  static createNull() {
+    return new HttpClient(new StubNodeHttp());
+  }
 }
 
 export interface HttpRequest {
@@ -27,7 +30,8 @@ class NodeHttp implements Http {
 }
 
 export class StubNodeHttp implements Http {
-  constructor(private options: { status: number; request: HttpRequest }) {}
+  constructor(private options: { status?: number; request?: HttpRequest } = {}) {}
+
   async send(request: HttpRequest): Promise<{ statusCode?: number }> {
     if (request !== this.options.request) throw new Error('No configured response');
     return { statusCode: this.options.status };
