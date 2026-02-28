@@ -44,7 +44,7 @@ describe('spike client test', () => {
     logResponse(response);
 
     expect(response.status).toEqual(200);
-    expect(response.headers.allowed).toEqual('OPTIONS, GET, HEAD');
+    expect(response.headers.allowed).toEqual('OPTIONS, GET, HEAD, TRACE');
   });
 
   it('TRACE', async () => {

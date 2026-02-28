@@ -10,7 +10,7 @@ export function startServer({ port = 3000, hostname = 'localhost' }: ServerOptio
     console.log(JSON.stringify({ method: request.method, headers: request.headers }));
 
     if (request.method === 'OPTIONS') {
-      response.setHeader('allowed', 'OPTIONS, GET, HEAD');
+      response.setHeader('allowed', 'OPTIONS, GET, HEAD, TRACE');
       response.end();
       return;
     }
