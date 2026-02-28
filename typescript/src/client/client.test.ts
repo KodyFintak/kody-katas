@@ -1,4 +1,5 @@
-import { HttpClient, HttpRequest, StubNodeHttp } from './httpClient';
+import { HttpClient, StubNodeHttp } from './httpClient';
+import { HttpRequest } from './httpRequest';
 
 describe('client test', () => {
   it('sends a http request', async () => {

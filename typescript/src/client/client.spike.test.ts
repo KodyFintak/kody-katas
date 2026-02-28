@@ -1,4 +1,5 @@
-import { HttpClient, HttpRequest } from './httpClient';
+import { HttpClient } from './httpClient';
+import { HttpRequest } from './httpRequest';
 
 describe('spike client test', () => {
   it('sends a http request', async () => {
