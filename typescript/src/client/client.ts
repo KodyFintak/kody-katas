@@ -11,7 +11,17 @@ export interface NodeHttpResponse {
 
 export function sendHttpRequest(request: HttpRequest): Promise<NodeHttpResponse> {
   return new Promise((resolve, reject) => {
-    const clientRequest = http.request(request, (response: IncomingMessage) => {
+    const httpRequest: http.RequestOptions = { ...request, headers: {} };
+
+    if (request.body) {
+      httpRequest.headers = {
+        ...httpRequest.headers,
+        'content-length': Buffer.byteLength(request.body),
+        'content-type': 'text/plain'
+      };
+    }
+
+    const clientRequest = http.request(httpRequest, (response: IncomingMessage) => {
       response.setEncoding('utf8');
 
       let content = '';
@@ -25,7 +35,9 @@ export function sendHttpRequest(request: HttpRequest): Promise<NodeHttpResponse>
       });
     });
 
-    if (request.body) clientRequest.write(request.body);
+    if (request.body) {
+      clientRequest.write(request.body);
+    }
 
     clientRequest.end();
   });

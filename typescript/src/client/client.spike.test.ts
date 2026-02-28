@@ -31,6 +31,7 @@ describe('spike client test', () => {
     const response = await client.sendRequest(request);
     console.log(JSON.stringify(response, null, 2));
     expect(response.status).toEqual(200);
+    expect(response.headers['content-length']).toEqual('10');
     expect(response.content).toEqual('Hello Kody');
   });
 
