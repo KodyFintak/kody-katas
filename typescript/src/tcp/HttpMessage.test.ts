@@ -6,6 +6,7 @@ class HttpRequest {
       uri: string;
       messageAsString: string;
       headers: Record<string, string>;
+      rawBody: string;
     }
   ) {}
 
@@ -25,8 +26,9 @@ class HttpRequest {
 
     const headersAsString = restAsOneLine.substring(0, restAsOneLine.indexOf('\r\n\r\n'));
     const headers = parseHeaders(headersAsString.split('\r\n'));
+    const rawBody = restAsOneLine.substring(restAsOneLine.indexOf('\r\n\r\n') + 4);
 
-    return new HttpRequest({ method, httpVersion, uri, messageAsString, headers });
+    return new HttpRequest({ method, httpVersion, uri, messageAsString, headers, rawBody });
   }
 
   get method() {
@@ -50,7 +52,7 @@ class HttpRequest {
   }
 
   get body() {
-    return 'Hello';
+    return this.message.rawBody;
   }
 }
 
@@ -110,5 +112,11 @@ describe('HttpRequest', () => {
     const httpRequest = HttpRequest.parse(messageAsString);
     expect(httpRequest.body).toEqual('Hello');
     expect(httpRequest.headers).toEqual({ host: 'localhost:3000', connection: 'keep-alive' });
+  });
+
+  it('parses request with cat body', () => {
+    const messageAsString = 'POST / HTTP/1.1\r\nHost: localhost:3000\r\nConnection: keep-alive\r\n\r\nCat';
+    const httpRequest = HttpRequest.parse(messageAsString);
+    expect(httpRequest.body).toEqual('Cat');
   });
 });
