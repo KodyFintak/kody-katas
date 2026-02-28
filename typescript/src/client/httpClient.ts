@@ -6,9 +6,9 @@ export class HttpClient {
   constructor(private http: Http = new NodeHttp()) {}
 
   async sendRequest(request: HttpRequest) {
-    const response = await this.http.send(request);
-    return { status: response.status, headers: response.headers };
+    return await this.http.send(request);
   }
+
   static createNull() {
     return new HttpClient(new StubNodeHttp());
   }
