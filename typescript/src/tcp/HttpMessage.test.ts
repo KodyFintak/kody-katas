@@ -20,15 +20,7 @@ class HttpRequest {
     const uri = splitRequestLine[1];
     const httpVersion = splitRequestLine[2].split('/')[1];
 
-    const headers = rest.reduce(
-      (result, line) => {
-        const key = line.substring(0, line.indexOf(':')).toLowerCase();
-        const value = line.substring(line.indexOf(' ') + 1);
-        result[key] = value;
-        return result;
-      },
-      {} as Record<string, string>
-    );
+    const headers = parseHeaders(rest);
 
     return new HttpRequest({ method, httpVersion, uri, messageAsString, headers });
   }
@@ -52,6 +44,18 @@ class HttpRequest {
   get headers() {
     return this.message.headers;
   }
+}
+
+function parseHeaders(headerLines: string[]) {
+  return headerLines.reduce(
+    (result, line) => {
+      const key = line.substring(0, line.indexOf(':')).toLowerCase();
+      const value = line.substring(line.indexOf(' ') + 1);
+      result[key] = value;
+      return result;
+    },
+    {} as Record<string, string>
+  );
 }
 
 describe('HttpRequest', () => {
