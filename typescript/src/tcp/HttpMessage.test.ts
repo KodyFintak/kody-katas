@@ -1,5 +1,8 @@
 class HttpMessage {
-  constructor(private _method: string) {}
+  constructor(
+    private _method: string,
+    private _httpVersion: string
+  ) {}
 
   static parse(messageAsString: string): HttpMessage {
     const lines = messageAsString.split('\r\n');
@@ -10,7 +13,9 @@ class HttpMessage {
     if (splitRequestLine.length !== 3) throw new Error(`Invalid Request Line ${requestLine}`);
 
     const method = splitRequestLine[0];
-    return new HttpMessage(method);
+    const httpVersion = splitRequestLine[2].split('/')[1];
+
+    return new HttpMessage(method, httpVersion);
   }
 
   get method() {
@@ -18,7 +23,7 @@ class HttpMessage {
   }
 
   get version() {
-    return '1.1';
+    return this._httpVersion;
   }
 }
 
@@ -35,6 +40,13 @@ describe('HttpMessage', () => {
     const httpMessage = HttpMessage.parse(messageAsString);
     expect(httpMessage.method).toEqual('POST');
     expect(httpMessage.version).toEqual('1.1');
+  });
+
+  it('parses HTTP 1.2 message', () => {
+    const messageAsString = 'POST / HTTP/1.2\r\nHost: localhost:3000\r\nConnection: keep-alive';
+    const httpMessage = HttpMessage.parse(messageAsString);
+    expect(httpMessage.method).toEqual('POST');
+    expect(httpMessage.version).toEqual('1.2');
   });
 
   it('throws Error when request line is invalid', () => {
