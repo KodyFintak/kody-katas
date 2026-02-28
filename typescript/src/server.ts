@@ -16,7 +16,7 @@ export function startServer({ port = 3000, hostname = 'localhost' }: ServerOptio
     }
 
     if (request.method === 'GET') {
-      response.statusCode = 200;
+      response.statusCode = 204;
       response.setHeader('content-type', 'text/plain');
       response.end('Hello World!');
       return;

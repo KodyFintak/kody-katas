@@ -1,6 +1,10 @@
 import { HttpClient } from './httpClient';
 import { HttpRequest } from './httpRequest';
 
+function logResponse(value: HttpResponse) {
+  console.log(JSON.stringify(value, null, 2));
+}
+
 describe('spike client test', () => {
   it('sends a http request', async () => {
     const request: HttpRequest = {
@@ -36,7 +40,11 @@ describe('spike client test', () => {
     };
     const client = new HttpClient();
     const response = await client.sendRequest(request);
-    console.log(JSON.stringify(response, null, 2));
+
+    logResponse(response);
+
+    expect(response.status).toEqual(200);
+    expect(response.headers.allowed).toEqual('OPTIONS, GET, HEAD');
   });
 
   it('fails on not accepted method', async () => {
@@ -48,6 +56,6 @@ describe('spike client test', () => {
     };
     const client = new HttpClient();
     const response = await client.sendRequest(request);
-    console.log(JSON.stringify(response, null, 2));
+    logResponse(response);
   });
 });
