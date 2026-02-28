@@ -1,5 +1,6 @@
 import { HttpClient } from './httpClient';
 import { HttpRequest } from './httpRequest';
+import { HttpResponse } from './httpResponse';
 
 function logResponse(value: HttpResponse) {
   console.log(JSON.stringify(value, null, 2));
