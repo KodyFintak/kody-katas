@@ -1,3 +1,3 @@
-import { startServer } from './server';
+import { startTCPServer } from './tcp/tcp-server';
 
-startServer();
+startTCPServer();
