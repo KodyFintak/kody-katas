@@ -1,9 +1,16 @@
 class HttpRequest {
-  constructor(private message: { method: string; httpVersion: string; uri: string; messageAsString: string }) {}
+  constructor(
+    private message: {
+      method: string;
+      httpVersion: string;
+      uri: string;
+      messageAsString: string;
+      headers: Record<string, string>;
+    }
+  ) {}
 
   static parse(messageAsString: string): HttpRequest {
-    const lines = messageAsString.split('\r\n');
-    const requestLine = lines[0];
+    const [requestLine, ...rest] = messageAsString.split('\r\n');
 
     const splitRequestLine = requestLine.split(' ');
 
@@ -13,7 +20,17 @@ class HttpRequest {
     const uri = splitRequestLine[1];
     const httpVersion = splitRequestLine[2].split('/')[1];
 
-    return new HttpRequest({ method, httpVersion, uri, messageAsString });
+    const headers = rest.reduce(
+      (result, line) => {
+        const key = line.substring(0, line.indexOf(':')).toLowerCase();
+        const value = line.substring(line.indexOf(' ') + 1);
+        result[key] = value;
+        return result;
+      },
+      {} as Record<string, string>
+    );
+
+    return new HttpRequest({ method, httpVersion, uri, messageAsString, headers });
   }
 
   get method() {
@@ -31,6 +48,10 @@ class HttpRequest {
   toString() {
     return this.message.messageAsString;
   }
+
+  get headers() {
+    return this.message.headers;
+  }
 }
 
 describe('HttpRequest', () => {
@@ -40,6 +61,7 @@ describe('HttpRequest', () => {
     expect(httpRequest.method).toEqual('GET');
     expect(httpRequest.uri).toEqual('/');
     expect(httpRequest.version).toEqual('1.1');
+    expect(httpRequest.headers).toEqual({ host: 'localhost:3000', connection: 'keep-alive' });
     expect(httpRequest.toString()).toEqual(messageAsString);
   });
 
