@@ -1,7 +1,9 @@
-import { add } from '../src';
+import { startServer } from '../src/index';
 
 describe('test', () => {
-  it('should add 1 + 2', () => {
-    expect(add(1, 1)).toEqual(2);
+  it('starts a http server', () => {
+    const server = startServer();
+
+    expect(server).toEqual(2);
   });
 });
