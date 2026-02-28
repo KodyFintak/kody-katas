@@ -29,6 +29,12 @@ export function startServer({ port = 3000, hostname = 'localhost' }: ServerOptio
       return;
     }
 
+    if (request.method === 'POST') {
+      response.statusCode = 200;
+      response.end('Success');
+      return;
+    }
+
     if (request.method === 'TRACE') {
       response.statusCode = 200;
       response.setHeader('content-type', 'message/http');

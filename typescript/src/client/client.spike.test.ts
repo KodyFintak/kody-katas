@@ -7,7 +7,7 @@ function logResponse(value: HttpResponse) {
 }
 
 describe('spike client test', () => {
-  it('sends a http request', async () => {
+  it('sends a GET http request', async () => {
     const request: HttpRequest = {
       hostname: 'localhost',
       port: 3000,
@@ -17,6 +17,20 @@ describe('spike client test', () => {
     const client = new HttpClient();
     const response = await client.sendRequest(request);
     console.log(JSON.stringify(response, null, 2));
+  });
+
+  it('sends a POST http request', async () => {
+    const request: HttpRequest = {
+      hostname: 'localhost',
+      port: 3000,
+      path: '/',
+      method: 'POST'
+    };
+    const client = new HttpClient();
+    const response = await client.sendRequest(request);
+    console.log(JSON.stringify(response, null, 2));
+    expect(response.status).toEqual(200);
+    expect(response.content).toEqual('Success');
   });
 
   it('gets headers via HEAD', async () => {
