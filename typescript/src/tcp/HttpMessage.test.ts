@@ -1,7 +1,8 @@
 class HttpMessage {
   constructor(
     private _method: string,
-    private _httpVersion: string
+    private _httpVersion: string,
+    private _uri: string
   ) {}
 
   static parse(messageAsString: string): HttpMessage {
@@ -13,9 +14,10 @@ class HttpMessage {
     if (splitRequestLine.length !== 3) throw new Error(`Invalid Request Line ${requestLine}`);
 
     const method = splitRequestLine[0];
+    const uri = splitRequestLine[1];
     const httpVersion = splitRequestLine[2].split('/')[1];
 
-    return new HttpMessage(method, httpVersion);
+    return new HttpMessage(method, httpVersion, uri);
   }
 
   get method() {
@@ -25,6 +27,10 @@ class HttpMessage {
   get version() {
     return this._httpVersion;
   }
+
+  get uri() {
+    return this._uri;
+  }
 }
 
 describe('HttpMessage', () => {
@@ -32,6 +38,7 @@ describe('HttpMessage', () => {
     const messageAsString = 'GET / HTTP/1.1\r\nHost: localhost:3000\r\nConnection: keep-alive';
     const httpMessage = HttpMessage.parse(messageAsString);
     expect(httpMessage.method).toEqual('GET');
+    expect(httpMessage.uri).toEqual('/');
     expect(httpMessage.version).toEqual('1.1');
   });
 
@@ -39,14 +46,18 @@ describe('HttpMessage', () => {
     const messageAsString = 'POST / HTTP/1.1\r\nHost: localhost:3000\r\nConnection: keep-alive';
     const httpMessage = HttpMessage.parse(messageAsString);
     expect(httpMessage.method).toEqual('POST');
-    expect(httpMessage.version).toEqual('1.1');
   });
 
   it('parses HTTP 1.2 message', () => {
     const messageAsString = 'POST / HTTP/1.2\r\nHost: localhost:3000\r\nConnection: keep-alive';
     const httpMessage = HttpMessage.parse(messageAsString);
-    expect(httpMessage.method).toEqual('POST');
     expect(httpMessage.version).toEqual('1.2');
+  });
+
+  it('parses /cat/hello message', () => {
+    const messageAsString = 'GET /cat/hello HTTP/1.1\r\nHost: localhost:3000\r\nConnection: keep-alive';
+    const httpMessage = HttpMessage.parse(messageAsString);
+    expect(httpMessage.uri).toEqual('/cat/hello');
   });
 
   it('throws Error when request line is invalid', () => {
