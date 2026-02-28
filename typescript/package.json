@@ -5,6 +5,7 @@
   "description": "package to use when doing katas",
   "scripts": {
     "compile": "tsc",
+    "server": "ts-node src/index.ts",
     "test": "vitest run"
   },
   "devDependencies": {
