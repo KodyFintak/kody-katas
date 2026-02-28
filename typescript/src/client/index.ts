@@ -1,11 +1,15 @@
-import { sendHttpRequest } from './client';
+import { HttpClient } from './httpClient';
 
-sendHttpRequest({
-  hostname: 'localhost',
-  port: 3000,
-  path: '/',
-  method: 'GET'
-}).then(response => {
-  console.log(response.statusCode);
-  process.exit();
-});
+const httpclient = new HttpClient();
+
+httpclient
+  .sendRequest({
+    hostname: 'localhost',
+    port: 3000,
+    path: '/',
+    method: 'GET'
+  })
+  .then(response => {
+    console.log(response.status);
+    process.exit();
+  });
