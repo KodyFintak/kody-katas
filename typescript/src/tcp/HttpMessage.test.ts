@@ -14,6 +14,7 @@ class HttpRequest {
 
     const splitRequestLine = requestLine.split(' ');
 
+    if (!messageAsString.includes('\r\n\r\n')) throw new Error('No Empty Line Between Headers and Body!');
     if (splitRequestLine.length !== 3) throw new Error(`Invalid Request Line ${requestLine}`);
 
     const method = splitRequestLine[0];
@@ -96,6 +97,11 @@ describe('HttpRequest', () => {
 
   it('throws Error when request line is invalid', () => {
     const messageAsString = 'POST/HTTP/1.1\r\nHost: localhost:3000\r\nConnection: keep-alive\r\n\r\n';
+    expect(() => HttpRequest.parse(messageAsString)).toThrow();
+  });
+
+  it('throws Error when no blank line between headers and data', () => {
+    const messageAsString = 'GET / HTTP/1.1\r\nHost: localhost:3000\r\nConnection: keep-alive';
     expect(() => HttpRequest.parse(messageAsString)).toThrow();
   });
 
