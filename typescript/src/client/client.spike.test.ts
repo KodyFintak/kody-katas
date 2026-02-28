@@ -24,13 +24,14 @@ describe('spike client test', () => {
       hostname: 'localhost',
       port: 3000,
       path: '/',
-      method: 'POST'
+      method: 'POST',
+      body: 'Kody'
     };
     const client = new HttpClient();
     const response = await client.sendRequest(request);
     console.log(JSON.stringify(response, null, 2));
     expect(response.status).toEqual(200);
-    expect(response.content).toEqual('Success');
+    expect(response.content).toEqual('Hello Kody');
   });
 
   it('gets headers via HEAD', async () => {

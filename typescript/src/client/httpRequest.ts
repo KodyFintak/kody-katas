@@ -3,4 +3,5 @@ export interface HttpRequest {
   port: number;
   path: string;
   method: string;
+  body?: any;
 }

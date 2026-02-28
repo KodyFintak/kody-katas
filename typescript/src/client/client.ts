@@ -1,6 +1,7 @@
 import http, { IncomingHttpHeaders, IncomingMessage } from 'node:http';
 
 import { HttpResponse } from './httpResponse';
+import { HttpRequest } from './httpRequest';
 
 export interface NodeHttpResponse {
   status: number;
@@ -8,9 +9,9 @@ export interface NodeHttpResponse {
   content: string;
 }
 
-export function sendHttpRequest(options: http.RequestOptions): Promise<NodeHttpResponse> {
+export function sendHttpRequest(request: HttpRequest): Promise<NodeHttpResponse> {
   return new Promise((resolve, reject) => {
-    const request = http.request(options, (response: IncomingMessage) => {
+    const clientRequest = http.request(request, (response: IncomingMessage) => {
       response.setEncoding('utf8');
 
       let content = '';
@@ -24,7 +25,9 @@ export function sendHttpRequest(options: http.RequestOptions): Promise<NodeHttpR
       });
     });
 
-    request.end();
+    if (request.body) clientRequest.write(request.body);
+
+    clientRequest.end();
   });
 }
 

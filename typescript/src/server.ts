@@ -30,8 +30,18 @@ export function startServer({ port = 3000, hostname = 'localhost' }: ServerOptio
     }
 
     if (request.method === 'POST') {
-      response.statusCode = 200;
-      response.end('Success');
+      let body = '';
+
+      request.on('data', (chunk: string) => {
+        body += chunk;
+      });
+
+      request.on('end', () => {
+        const name = body;
+        response.statusCode = 200;
+        response.end(`Hello ${name}`);
+      });
+
       return;
     }
 
