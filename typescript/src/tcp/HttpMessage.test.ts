@@ -1,5 +1,5 @@
 class HttpMessage {
-  constructor(private message: { method: string; uri: string; httpVersion: string }) {}
+  constructor(private message: { method: string; httpVersion: string; uri: string; messageAsString: string }) {}
 
   static parse(messageAsString: string): HttpMessage {
     const lines = messageAsString.split('\r\n');
@@ -13,7 +13,7 @@ class HttpMessage {
     const uri = splitRequestLine[1];
     const httpVersion = splitRequestLine[2].split('/')[1];
 
-    return new HttpMessage({ method, httpVersion, uri });
+    return new HttpMessage({ method, httpVersion, uri, messageAsString });
   }
 
   get method() {
@@ -27,6 +27,10 @@ class HttpMessage {
   get uri() {
     return this.message.uri;
   }
+
+  toString() {
+    return this.message.messageAsString;
+  }
 }
 
 describe('HttpMessage', () => {
@@ -36,6 +40,7 @@ describe('HttpMessage', () => {
     expect(httpMessage.method).toEqual('GET');
     expect(httpMessage.uri).toEqual('/');
     expect(httpMessage.version).toEqual('1.1');
+    expect(httpMessage.toString()).toEqual(messageAsString);
   });
 
   it('parses POST HTTP message', () => {
