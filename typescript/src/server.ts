@@ -29,6 +29,18 @@ export function startServer({ port = 3000, hostname = 'localhost' }: ServerOptio
       return;
     }
 
+    if (request.method === 'TRACE') {
+      response.statusCode = 200;
+      response.setHeader('content-type', 'message/http');
+      const requestLine = `${request.method} ${request.url} HTTP/${request.httpVersion}\r\n`;
+      const headers = Object.entries(request.headers)
+        .map(([key, value]) => `${key}: ${value}`)
+        .join('\r\n');
+      const content = requestLine + headers;
+      response.end(content);
+      return;
+    }
+
     response.statusCode = 405;
     response.setHeader('content-type', 'text/plain');
     response.end(`Method: ${request.method} not allowed`);
