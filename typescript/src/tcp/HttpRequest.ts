@@ -54,6 +54,7 @@ export class HttpRequest {
   get body() {
     return this.message.rawBody;
   }
+
   bodyAsObject() {
     return JSON.parse(this.message.rawBody);
   }
