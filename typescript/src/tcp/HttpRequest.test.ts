@@ -51,4 +51,11 @@ describe('HttpRequest', () => {
     const httpRequest = HttpRequest.parse(messageAsString);
     expect(httpRequest.body).toEqual('Cat');
   });
+
+  it('parses request with json body', () => {
+    const messageAsString =
+      'POST / HTTP/1.1\r\nHost: localhost:3000\r\ncontent-type: application/json\r\ncontent-length: 18\r\n\r\n{ "name": "Kody" }';
+    const httpRequest = HttpRequest.parse(messageAsString);
+    expect(httpRequest.bodyAsObject()).toEqual({ name: 'Kody' });
+  });
 });
