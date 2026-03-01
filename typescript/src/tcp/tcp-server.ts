@@ -1,5 +1,6 @@
 import * as net from 'node:net';
 import { HttpRequest } from './HttpRequest';
+import { HttpResponse } from './HttpResponse';
 
 export function startTCPServer() {
   const server = net.createServer(socket => {
@@ -10,7 +11,10 @@ export function startTCPServer() {
       const request = HttpRequest.parse(requestAsString);
       console.log(request);
 
-      socket.write(`hello ${data}`);
+      const response = new HttpResponse({ httpVersion: 1.1, status: 200, headers: {}, body: 'Hello World' });
+
+      socket.write(response.toString());
+      socket.end();
     });
 
     socket.on('end', () => {
