@@ -11,8 +11,14 @@ export function startTCPServer() {
       const request = HttpRequest.parse(requestAsString);
       console.log(request);
 
-      const response = new HttpResponse({ httpVersion: 1.1, status: 200, headers: {}, body: 'Hello World' });
-
+      const body = 'Hello World';
+      const response = new HttpResponse({
+        httpVersion: 1.1,
+        status: 200,
+        headers: { 'content-type': 'text/plain', 'content-length': Buffer.byteLength(body).toString() },
+        body
+      });
+      console.log(response.toString());
       socket.write(response.toString());
       socket.end();
     });
