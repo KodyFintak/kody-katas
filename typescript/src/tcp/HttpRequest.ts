@@ -59,8 +59,9 @@ export class HttpRequest {
 function parseHeaders(headerLines: string[]) {
   return headerLines.reduce(
     (result, line) => {
-      const key = line.substring(0, line.indexOf(':')).toLowerCase();
-      const value = line.substring(line.indexOf(' ') + 1);
+      const colon = line.indexOf(':');
+      const key = line.slice(0, colon).toLowerCase();
+      const value = line.slice(colon + 2);
       result[key] = value;
       return result;
     },
