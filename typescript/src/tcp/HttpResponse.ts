@@ -12,7 +12,9 @@ export class HttpResponse {
   }
 
   withTextBody(body: string) {
-    return new HttpResponse({ ...this.message, body }).withHeader('content-type', 'text/plain');
+    return new HttpResponse({ ...this.message, body })
+      .withHeader('content-type', 'text/plain')
+      .withHeader('content-length', Buffer.byteLength(body).toString());
   }
 
   toString() {

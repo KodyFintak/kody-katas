@@ -29,7 +29,7 @@ describe('HttpResponse', () => {
 
   it('creates HttpResponse with body with chaining', () => {
     const response = HttpResponse.success().withTextBody('Hello World');
-    expect(response.toString()).toEqual('HTTP/1.1 200\r\ncontent-type: text/plain\r\n\r\nHello World');
+    expect(response.toString()).toEqual('HTTP/1.1 200\r\ncontent-type: text/plain\r\ncontent-length: 11\r\n\r\nHello World');
   });
 
   it('creates HttpResponse with 1.2 version', () => {
