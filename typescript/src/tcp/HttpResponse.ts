@@ -8,7 +8,11 @@ export class HttpResponse {
   }
 
   static success() {
-    return new HttpResponse({ httpVersion: 1.1, status: 200, headers: {} });
+    return HttpResponse.create().withStatus(200);
+  }
+
+  withStatus(status: number) {
+    return new HttpResponse({ ...this.message, status });
   }
 
   withHeader(key: string, value: string) {
