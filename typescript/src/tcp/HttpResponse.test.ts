@@ -39,6 +39,13 @@ describe('HttpResponse', () => {
     );
   });
 
+  it('creates HttpResponse with json body', () => {
+    const response = HttpResponse.success().withDate(new Date('2025-01-01T00:00:00Z')).withJsonBody({ name: 'Kody' });
+    expect(response.toString()).toEqual(
+      'HTTP/1.1 200\r\ndate: Wed, 01 Jan 2025 00:00:00 GMT\r\ncontent-type: application/json\r\ncontent-length: 15\r\n\r\n{"name":"Kody"}'
+    );
+  });
+
   it('creates HttpResponse with 1.2 version', () => {
     const response = new HttpResponse({ httpVersion: 1.2, status: 200, headers: {} });
     expect(response.statusLine()).toEqual('HTTP/1.2 200');

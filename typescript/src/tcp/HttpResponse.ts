@@ -25,6 +25,13 @@ export class HttpResponse {
       .withHeader('content-length', Buffer.byteLength(body).toString());
   }
 
+  withJsonBody(body: any) {
+    const bodyAsString = JSON.stringify(body);
+    return new HttpResponse({ ...this.message, body: bodyAsString })
+      .withHeader('content-type', 'application/json')
+      .withHeader('content-length', Buffer.byteLength(bodyAsString).toString());
+  }
+
   withDate(date: Date) {
     return this.withHeader('date', date.toUTCString());
   }
