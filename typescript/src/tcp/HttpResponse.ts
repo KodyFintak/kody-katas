@@ -4,7 +4,7 @@ export class HttpResponse {
   ) {}
 
   static create(now: () => Date = () => new Date()) {
-    return new HttpResponse({ httpVersion: 1.1, status: 200, headers: {} }).withDate(now);
+    return new HttpResponse({ httpVersion: 1.1, status: 200, headers: {} }).withDate(now());
   }
 
   static success() {
@@ -25,8 +25,8 @@ export class HttpResponse {
       .withHeader('content-length', Buffer.byteLength(body).toString());
   }
 
-  withDate(now: () => Date = () => new Date()) {
-    return this.withHeader('date', now().toUTCString());
+  withDate(date: Date) {
+    return this.withHeader('date', date.toUTCString());
   }
 
   toString() {
