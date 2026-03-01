@@ -1,8 +1,13 @@
 class HttpResponse {
-  constructor(private message: { httpVersion: number; status: number; reasonPhrase?: string }) {}
+  constructor(private message: { httpVersion: number; status: number; reasonPhrase?: string; headers?: Record<string, string> }) {}
 
   toString() {
-    return `${[this.statusLine(), 'date: Tue, 29 Oct 2024 16:56:32 GMT'].join('\r\n')}\r\n\r\n`;
+    return `${[this.statusLine(), ...this.headerLines()].join('\r\n')}\r\n\r\n`;
+  }
+
+  private headerLines() {
+    const headers = this.message.headers ?? {};
+    return Object.entries(headers).map(([key, value]) => `${key}: ${value}`);
   }
 
   statusLine() {
@@ -14,8 +19,12 @@ class HttpResponse {
 
 describe('HttpResponse', () => {
   it('creates HttpResponse', () => {
-    const response = new HttpResponse({ httpVersion: 1.1, status: 200, headers: { date: 'Tue, 29 Oct 2024 16:56:32 GMT' } });
-    expect(response.toString()).toEqual('HTTP/1.1 200\r\ndate: Tue, 29 Oct 2024 16:56:32 GMT\r\n\r\n');
+    const response = new HttpResponse({
+      httpVersion: 1.1,
+      status: 200,
+      headers: { 'content-type': 'text/plain', date: 'Tue, 29 Oct 2024 16:56:32 GMT' }
+    });
+    expect(response.toString()).toEqual('HTTP/1.1 200\r\ncontent-type: text/plain\r\ndate: Tue, 29 Oct 2024 16:56:32 GMT\r\n\r\n');
   });
 
   it('creates HttpResponse with 1.2 version', () => {
