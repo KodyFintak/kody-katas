@@ -3,8 +3,8 @@ export class HttpResponse {
     private message: { httpVersion: number; status: number; reasonPhrase?: string; headers: Record<string, string>; body?: string }
   ) {}
 
-  static create() {
-    return new HttpResponse({ httpVersion: 1.1, status: 200, headers: { date: 'Tue, 29 Oct 2024 16:56:32 GMT' } });
+  static create(now: () => Date = () => new Date()) {
+    return new HttpResponse({ httpVersion: 1.1, status: 200, headers: {} }).withDate(now);
   }
 
   static success() {
@@ -23,6 +23,10 @@ export class HttpResponse {
     return new HttpResponse({ ...this.message, body })
       .withHeader('content-type', 'text/plain')
       .withHeader('content-length', Buffer.byteLength(body).toString());
+  }
+
+  withDate(now: () => Date = () => new Date()) {
+    return this.withHeader('date', now().toUTCString());
   }
 
   toString() {

@@ -23,8 +23,8 @@ describe('HttpResponse', () => {
   });
 
   it('create sets defaults', () => {
-    const response = HttpResponse.create();
-    expect(response).toEqual(new HttpResponse({ status: 200, httpVersion: 1.1, headers: { date: 'Tue, 29 Oct 2024 16:56:32 GMT' } }));
+    const response = HttpResponse.create(() => new Date('2025-01-01T00:00:00Z'));
+    expect(response).toEqual(new HttpResponse({ status: 200, httpVersion: 1.1, headers: { date: 'Wed, 01 Jan 2025 00:00:00 GMT' } }));
   });
 
   it('creates HttpResponse with chaining', () => {
@@ -33,9 +33,11 @@ describe('HttpResponse', () => {
   });
 
   it('creates HttpResponse with body with chaining', () => {
-    const response = HttpResponse.success().withTextBody('Hello World');
+    const response = HttpResponse.success()
+      .withDate(() => new Date('2025-01-01T00:00:00Z'))
+      .withTextBody('Hello World');
     expect(response.toString()).toEqual(
-      'HTTP/1.1 200\r\ndate: Tue, 29 Oct 2024 16:56:32 GMT\r\ncontent-type: text/plain\r\ncontent-length: 11\r\n\r\nHello World'
+      'HTTP/1.1 200\r\ndate: Wed, 01 Jan 2025 00:00:00 GMT\r\ncontent-type: text/plain\r\ncontent-length: 11\r\n\r\nHello World'
     );
   });
 
