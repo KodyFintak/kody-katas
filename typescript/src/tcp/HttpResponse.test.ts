@@ -22,6 +22,11 @@ describe('HttpResponse', () => {
     );
   });
 
+  it('create sets defaults', () => {
+    const response = HttpResponse.create();
+    expect(response).toEqual(new HttpResponse({ status: 200, httpVersion: 1.1, headers: { date: 'Tue, 29 Oct 2024 16:56:32 GMT' } }));
+  });
+
   it('creates HttpResponse with chaining', () => {
     const response = HttpResponse.success().withHeader('content-type', 'text/plain').withHeader('date', 'Tue, 29 Oct 2024 16:56:32 GMT');
     expect(response.toString()).toEqual('HTTP/1.1 200\r\ncontent-type: text/plain\r\ndate: Tue, 29 Oct 2024 16:56:32 GMT\r\n\r\n');

@@ -3,6 +3,10 @@ export class HttpResponse {
     private message: { httpVersion: number; status: number; reasonPhrase?: string; headers: Record<string, string>; body?: string }
   ) {}
 
+  static create() {
+    return new HttpResponse({ httpVersion: 1.1, status: 200, headers: { date: 'Tue, 29 Oct 2024 16:56:32 GMT' } });
+  }
+
   static success() {
     return new HttpResponse({ httpVersion: 1.1, status: 200, headers: {} });
   }
