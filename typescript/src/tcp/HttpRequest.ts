@@ -59,12 +59,17 @@ export class HttpRequest {
 function parseHeaders(headerLines: string[]) {
   return headerLines.reduce(
     (result, line) => {
-      const colon = line.indexOf(':');
-      const key = line.slice(0, colon).toLowerCase();
-      const value = line.slice(colon + 2);
+      const { key, value } = parseHeader(line);
       result[key] = value;
       return result;
     },
     {} as Record<string, string>
   );
+}
+
+function parseHeader(line: string) {
+  const colon = line.indexOf(':');
+  const key = line.slice(0, colon).toLowerCase();
+  const value = line.slice(colon + 2);
+  return { key, value };
 }
