@@ -11,6 +11,10 @@ export class HttpResponse {
     return new HttpResponse({ ...this.message, headers: { ...this.message.headers, [key]: value } });
   }
 
+  withBody(body: string) {
+    return new HttpResponse({ ...this.message, body });
+  }
+
   toString() {
     const statusLineAndHeaderLines = `${[this.statusLine(), ...this.headerLines()].join('\r\n')}\r\n\r\n`;
     if (this.message.body) return `${statusLineAndHeaderLines}${this.message.body}`;
