@@ -11,7 +11,7 @@ export function startTCPServer() {
       const request = HttpRequest.parse(requestAsString);
       console.log(request);
 
-      const response = HttpResponse.success().withTextBody('Hello World');
+      const response = HttpResponse.success().withJsonBody({ name: 'kody' });
       console.log(response.toString());
       socket.write(response.toString());
       socket.end();
