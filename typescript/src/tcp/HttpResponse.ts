@@ -11,8 +11,8 @@ export class HttpResponse {
     return new HttpResponse({ ...this.message, headers: { ...this.message.headers, [key]: value } });
   }
 
-  withBody(body: string) {
-    return new HttpResponse({ ...this.message, body });
+  withTextBody(body: string) {
+    return new HttpResponse({ ...this.message, body }).withHeader('content-type', 'text/plain');
   }
 
   toString() {

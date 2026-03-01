@@ -28,13 +28,8 @@ describe('HttpResponse', () => {
   });
 
   it('creates HttpResponse with body with chaining', () => {
-    const response = HttpResponse.success()
-      .withHeader('content-type', 'text/plain')
-      .withHeader('date', 'Tue, 29 Oct 2024 16:56:32 GMT')
-      .withBody('Hello World');
-    expect(response.toString()).toEqual(
-      'HTTP/1.1 200\r\ncontent-type: text/plain\r\ndate: Tue, 29 Oct 2024 16:56:32 GMT\r\n\r\nHello World'
-    );
+    const response = HttpResponse.success().withTextBody('Hello World');
+    expect(response.toString()).toEqual('HTTP/1.1 200\r\ncontent-type: text/plain\r\n\r\nHello World');
   });
 
   it('creates HttpResponse with 1.2 version', () => {
