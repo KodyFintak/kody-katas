@@ -12,7 +12,7 @@ describe('client test', () => {
     const stubNodeHttp = new StubNodeHttp({ status: 200, request });
     const client = new HttpClient(stubNodeHttp);
     const response = await client.sendRequest(request);
-    expect(response).toEqual({ status: 200 });
+    expect(response).toEqual({ status: 200, headers: {}, content: '' });
   });
 
   describe('Nullable', () => {
