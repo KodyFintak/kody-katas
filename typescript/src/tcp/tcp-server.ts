@@ -11,10 +11,17 @@ export function startTCPServer() {
       const request = HttpRequest.parse(requestAsString);
       console.log(request);
 
-      const response = HttpResponse.success().withJsonBody({ name: 'kody' });
-      console.log(response.toString());
-      socket.write(response.toString());
-      socket.end();
+      if (request.method === 'POST') {
+        const response = HttpResponse.success().withTextBody(`Hello ${request.body}`);
+        console.log(response.toString());
+        socket.write(response.toString());
+        socket.end();
+      } else {
+        const response = HttpResponse.success().withJsonBody({ name: 'kody' });
+        console.log(response.toString());
+        socket.write(response.toString());
+        socket.end();
+      }
     });
 
     socket.on('end', () => {
