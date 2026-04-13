@@ -5,7 +5,8 @@
   "description": "package to use when doing katas",
   "scripts": {
     "compile": "tsc",
-    "server": "tsx --watch src/index.ts",
+    "server:node": "tsx --watch src/startNodeHttp.ts",
+    "server:tcp": "tsx --watch src/startTCPHttp.ts",
     "client": "tsx src/client/index.ts",
     "test": "vitest run"
   },
