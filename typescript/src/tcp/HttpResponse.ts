@@ -8,7 +8,7 @@ export class HttpResponse {
   }
 
   static success() {
-    return HttpResponse.create().withStatus(200);
+    return HttpResponse.create().withHeader('connection', 'close').withStatus(200);
   }
 
   withStatus(status: number) {
