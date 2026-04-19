@@ -28,7 +28,7 @@ export class TCPHttpServer {
     return this.onRequest(request);
   }
 
-  private onData(socket: Socket, data: string | Buffer<ArrayBuffer>) {
+  onData(socket: Socket, data: string | Buffer<ArrayBuffer>) {
     const requestAsString = Buffer.from(data).toString();
     const request = HttpRequest.parse(requestAsString);
     console.log(request);
