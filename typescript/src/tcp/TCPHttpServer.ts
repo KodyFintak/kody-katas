@@ -2,11 +2,7 @@ import net, { Socket } from 'node:net';
 import { HttpRequest } from './HttpRequest';
 import { handleRequest } from './handle-request';
 import { HttpResponse } from './HttpResponse';
-
-export interface Logger {
-  log: (message: any) => void;
-  error: (message: any) => void;
-}
+import { Logger } from './Logger';
 
 export class TCPHttpServer {
   private readonly port: number;
