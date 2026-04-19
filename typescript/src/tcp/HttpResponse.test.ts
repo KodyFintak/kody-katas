@@ -29,20 +29,22 @@ describe('HttpResponse', () => {
 
   it('creates HttpResponse with chaining', () => {
     const response = HttpResponse.success().withHeader('date', 'Tue, 29 Oct 2024 16:56:32 GMT').withHeader('content-type', 'text/plain');
-    expect(response.toString()).toEqual('HTTP/1.1 200\r\ndate: Tue, 29 Oct 2024 16:56:32 GMT\r\ncontent-type: text/plain\r\n\r\n');
+    expect(response.toString()).toEqual(
+      'HTTP/1.1 200\r\ndate: Tue, 29 Oct 2024 16:56:32 GMT\r\nconnection: close\r\ncontent-type: text/plain\r\n\r\n'
+    );
   });
 
   it('creates HttpResponse with body with chaining', () => {
     const response = HttpResponse.success().withDate(new Date('2025-01-01T00:00:00Z')).withTextBody('Hello World');
     expect(response.toString()).toEqual(
-      'HTTP/1.1 200\r\ndate: Wed, 01 Jan 2025 00:00:00 GMT\r\ncontent-type: text/plain\r\ncontent-length: 11\r\n\r\nHello World'
+      'HTTP/1.1 200\r\ndate: Wed, 01 Jan 2025 00:00:00 GMT\r\nconnection: close\r\ncontent-type: text/plain\r\ncontent-length: 11\r\n\r\nHello World'
     );
   });
 
   it('creates HttpResponse with json body', () => {
     const response = HttpResponse.success().withDate(new Date('2025-01-01T00:00:00Z')).withJsonBody({ name: 'Kody' });
     expect(response.toString()).toEqual(
-      'HTTP/1.1 200\r\ndate: Wed, 01 Jan 2025 00:00:00 GMT\r\ncontent-type: application/json\r\ncontent-length: 15\r\n\r\n{"name":"Kody"}'
+      'HTTP/1.1 200\r\ndate: Wed, 01 Jan 2025 00:00:00 GMT\r\nconnection: close\r\ncontent-type: application/json\r\ncontent-length: 15\r\n\r\n{"name":"Kody"}'
     );
   });
 
