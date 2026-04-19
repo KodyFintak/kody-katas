@@ -1,15 +1,9 @@
 import * as net from 'node:net';
 import { HttpRequest } from './HttpRequest';
 import { HttpResponse } from './HttpResponse';
+import { handleRequest as requestHandler } from './handle-request';
 
-function handleRequest(request: HttpRequest) {
-  if (request.method === 'POST') {
-    return HttpResponse.success().withTextBody(`Hello ${request.body}`);
-  }
-  return HttpResponse.success().withJsonBody({ name: 'kody' });
-}
-
-export function startTCPServer() {
+export function startTCPServer(handleRequest: (request: HttpRequest) => HttpResponse = requestHandler) {
   const server = net.createServer(socket => {
     socket.setEncoding('utf8');
 
