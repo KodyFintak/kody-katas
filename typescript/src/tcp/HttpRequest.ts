@@ -1,14 +1,14 @@
+export interface HttpRequestMessage {
+  method: string;
+  httpVersion: string;
+  uri: string;
+  messageAsString: string;
+  headers: Record<string, string>;
+  rawBody: string;
+}
+
 export class HttpRequest {
-  constructor(
-    private message: {
-      method: string;
-      httpVersion: string;
-      uri: string;
-      messageAsString: string;
-      headers: Record<string, string>;
-      rawBody: string;
-    }
-  ) {}
+  constructor(private message: HttpRequestMessage) {}
 
   static parse(messageAsString: string): HttpRequest {
     const [requestLine, ...rest] = messageAsString.split('\r\n');

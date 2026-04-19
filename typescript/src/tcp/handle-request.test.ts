@@ -1,19 +1,24 @@
 import { handleRequest } from './handle-request';
-import { HttpRequest } from './HttpRequest';
+import { HttpRequest, HttpRequestMessage } from './HttpRequest';
 import { HttpResponse } from './HttpResponse';
 
 describe('handleRequest', () => {
   it('handles GET', () => {
-    const response = handleRequest(
-      new HttpRequest({
-        headers: {},
-        httpVersion: '',
-        messageAsString: '',
-        method: 'GET',
-        rawBody: '',
-        uri: ''
-      })
-    );
+    const request = createRequest({ method: 'GET' });
+    const response = handleRequest(request);
     expect(response).toEqual(HttpResponse.success().withJsonBody({ name: 'kody' }));
   });
 });
+
+const defaultMessage = {
+  headers: {},
+  httpVersion: '',
+  messageAsString: '',
+  method: 'GET',
+  rawBody: '',
+  uri: ''
+};
+
+function createRequest(message: Partial<HttpRequestMessage> = {}) {
+  return new HttpRequest({ ...defaultMessage, ...message });
+}
