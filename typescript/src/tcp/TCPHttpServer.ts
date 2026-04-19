@@ -6,13 +6,8 @@ export class TCPHttpServer {
   start() {
     const server = net.createServer(socket => {
       socket.setEncoding('utf8');
-
       socket.on('data', data => this.onData(socket, data));
-
-      socket.on('end', () => {
-        console.log('client disconnected');
-      });
-
+      socket.on('end', () => console.log('client disconnected'));
       socket.on('error', console.error);
     });
 
@@ -21,7 +16,7 @@ export class TCPHttpServer {
     console.log(`started server on port ${port}`);
   }
 
-  private onData(socket: Socket, data: string) {
+  private onData(socket: Socket, data: string | Buffer<ArrayBuffer>) {
     const requestAsString = Buffer.from(data).toString();
     const request = HttpRequest.parse(requestAsString);
     console.log(request);
