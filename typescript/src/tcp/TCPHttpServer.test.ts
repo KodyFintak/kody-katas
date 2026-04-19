@@ -6,7 +6,7 @@ describe('TCPHttpServer', () => {
   it('handles GET request', () => {
     const request = createRequest({ method: 'GET' });
 
-    const server = new TCPHttpServer({ port: 3000 });
+    const server = new TCPHttpServer();
     server.start();
 
     const response = server.handleRequest(request);

@@ -7,7 +7,7 @@ export class TCPHttpServer {
   private readonly port: number;
   private readonly onRequest: (request: HttpRequest) => HttpResponse;
 
-  constructor(options: { port: number }) {
+  constructor(options: { port?: number } = {}) {
     this.port = options.port ?? 3000;
     this.onRequest = handleRequest;
   }
