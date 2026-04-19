@@ -27,6 +27,15 @@ describe('TCPHttpServer', () => {
       expect(socket.writtenData).toEqual(HttpResponse.success().withTextBody('Hello Kody').toString());
     });
 
+    it('pauses on non finished message', () => {
+      const bufferedMessage = 'GET / HTTP/1.1\r\nHost: localhost:3000\r\ncontent-type: application/json';
+      const server = createTestServer(onRequest);
+      const socket = new SpySocket();
+      server.onData(socket as unknown as Socket, bufferedMessage);
+      expect(socket.isAlive).toEqual(true);
+      expect(socket.writtenData).toEqual('');
+    });
+
     it('handles incomplete message', () => {
       const bufferedMessage1 = 'GET / HTTP/1.1\r\nHost: localhost:3000\r\ncontent-type: application/json';
       const bufferedMessage2 = '\r\ncontent-length: 18\r\n\r\n{ "name": "Kody" }';
