@@ -8,6 +8,12 @@ describe('handleRequest', () => {
     const response = handleRequest(request);
     expect(response).toEqual(HttpResponse.success().withJsonBody({ name: 'kody' }));
   });
+
+  it('handles POST', () => {
+    const request = createRequest({ method: 'POST', rawBody: 'Kody' });
+    const response = handleRequest(request);
+    expect(response).toEqual(HttpResponse.success().withTextBody('Hello Kody'));
+  });
 });
 
 const defaultMessage = {
