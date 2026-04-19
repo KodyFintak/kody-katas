@@ -3,6 +3,12 @@ import { HttpRequest } from './HttpRequest';
 import { handleRequest } from './handle-request';
 
 export class TCPHttpServer {
+  private port: number;
+
+  constructor(options: { port: number }) {
+    this.port = options.port ?? 3000;
+  }
+
   start() {
     const server = net.createServer(socket => {
       socket.setEncoding('utf8');
@@ -11,9 +17,8 @@ export class TCPHttpServer {
       socket.on('error', console.error);
     });
 
-    const port = 3000;
-    server.listen(port);
-    console.log(`started server on port ${port}`);
+    server.listen(this.port);
+    console.log(`started server on port ${this.port}`);
   }
 
   private onData(socket: Socket, data: string | Buffer<ArrayBuffer>) {
