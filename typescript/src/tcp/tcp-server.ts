@@ -5,9 +5,8 @@ import { HttpResponse } from './HttpResponse';
 function handleRequest(request: HttpRequest) {
   if (request.method === 'POST') {
     return HttpResponse.success().withTextBody(`Hello ${request.body}`);
-  } else {
-    return HttpResponse.success().withJsonBody({ name: 'kody' });
   }
+  return HttpResponse.success().withJsonBody({ name: 'kody' });
 }
 
 export function startTCPServer() {
