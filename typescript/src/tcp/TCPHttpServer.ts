@@ -25,7 +25,7 @@ export class TCPHttpServer {
   }
 
   handleRequest(request: HttpRequest) {
-    return handleRequest(request);
+    return this.onRequest(request);
   }
 
   private onData(socket: Socket, data: string | Buffer<ArrayBuffer>) {
