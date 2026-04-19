@@ -4,14 +4,14 @@ import { Socket } from 'node:net';
 import { createTestServer } from './createTestServer';
 import { HttpRequest } from './HttpRequest';
 
-function handleRequest(request: HttpRequest): HttpResponse {
+function onRequest(request: HttpRequest): HttpResponse {
   return HttpResponse.success().withTextBody(`Hello ${request.bodyAsObject().name}`);
 }
 
 describe('TCPHttpServer', () => {
   it('handles GET request', () => {
     const request = createRequest({ method: 'GET', rawBody: JSON.stringify({ name: 'Kody' }) });
-    const server = createTestServer(handleRequest);
+    const server = createTestServer(onRequest);
     const response = server.handleRequest(request);
     expect(response).toEqual(HttpResponse.success().withTextBody('Hello Kody'));
   });
@@ -19,7 +19,7 @@ describe('TCPHttpServer', () => {
   it('handles socket write', () => {
     const messageAsString =
       'GET / HTTP/1.1\r\nHost: localhost:3000\r\ncontent-type: application/json\r\ncontent-length: 18\r\n\r\n{ "name": "Kody" }';
-    const server = createTestServer(handleRequest);
+    const server = createTestServer(onRequest);
     const socket = new SpySocket();
     server.onData(socket as unknown as Socket, messageAsString);
     expect(socket.isAlive).toEqual(false);
@@ -29,7 +29,7 @@ describe('TCPHttpServer', () => {
   it('handles incomplete message', () => {
     const bufferedMessage1 = 'GET / HTTP/1.1\r\nHost: localhost:3000\r\ncontent-type: application/json';
     const bufferedMessage2 = '\r\ncontent-length: 18\r\n\r\n{ "name": "Kody" }';
-    const server = createTestServer(handleRequest);
+    const server = createTestServer(onRequest);
     const socket = new SpySocket();
     server.onData(socket as unknown as Socket, bufferedMessage1);
     server.onData(socket as unknown as Socket, bufferedMessage2);
