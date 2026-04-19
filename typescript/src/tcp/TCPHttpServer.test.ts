@@ -16,25 +16,27 @@ describe('TCPHttpServer', () => {
     expect(response).toEqual(HttpResponse.success().withTextBody('Hello Kody'));
   });
 
-  it('handles socket write', () => {
-    const messageAsString =
-      'GET / HTTP/1.1\r\nHost: localhost:3000\r\ncontent-type: application/json\r\ncontent-length: 18\r\n\r\n{ "name": "Kody" }';
-    const server = createTestServer(onRequest);
-    const socket = new SpySocket();
-    server.onData(socket as unknown as Socket, messageAsString);
-    expect(socket.isAlive).toEqual(false);
-    expect(socket.writtenData).toEqual(HttpResponse.success().withTextBody('Hello Kody').toString());
-  });
+  describe('onData', () => {
+    it('handles socket write', () => {
+      const messageAsString =
+        'GET / HTTP/1.1\r\nHost: localhost:3000\r\ncontent-type: application/json\r\ncontent-length: 18\r\n\r\n{ "name": "Kody" }';
+      const server = createTestServer(onRequest);
+      const socket = new SpySocket();
+      server.onData(socket as unknown as Socket, messageAsString);
+      expect(socket.isAlive).toEqual(false);
+      expect(socket.writtenData).toEqual(HttpResponse.success().withTextBody('Hello Kody').toString());
+    });
 
-  it('handles incomplete message', () => {
-    const bufferedMessage1 = 'GET / HTTP/1.1\r\nHost: localhost:3000\r\ncontent-type: application/json';
-    const bufferedMessage2 = '\r\ncontent-length: 18\r\n\r\n{ "name": "Kody" }';
-    const server = createTestServer(onRequest);
-    const socket = new SpySocket();
-    server.onData(socket as unknown as Socket, bufferedMessage1);
-    server.onData(socket as unknown as Socket, bufferedMessage2);
-    expect(socket.isAlive).toEqual(false);
-    expect(socket.writtenData).toEqual(HttpResponse.success().withTextBody('Hello Kody').toString());
+    it('handles incomplete message', () => {
+      const bufferedMessage1 = 'GET / HTTP/1.1\r\nHost: localhost:3000\r\ncontent-type: application/json';
+      const bufferedMessage2 = '\r\ncontent-length: 18\r\n\r\n{ "name": "Kody" }';
+      const server = createTestServer(onRequest);
+      const socket = new SpySocket();
+      server.onData(socket as unknown as Socket, bufferedMessage1);
+      server.onData(socket as unknown as Socket, bufferedMessage2);
+      expect(socket.isAlive).toEqual(false);
+      expect(socket.writtenData).toEqual(HttpResponse.success().withTextBody('Hello Kody').toString());
+    });
   });
 });
 
