@@ -1,12 +1,15 @@
 import net, { Socket } from 'node:net';
 import { HttpRequest } from './HttpRequest';
 import { handleRequest } from './handle-request';
+import { HttpResponse } from './HttpResponse';
 
 export class TCPHttpServer {
-  private port: number;
+  private readonly port: number;
+  private readonly onRequest: (request: HttpRequest) => HttpResponse;
 
   constructor(options: { port: number }) {
     this.port = options.port ?? 3000;
+    this.onRequest = handleRequest;
   }
 
   start() {
@@ -21,11 +24,15 @@ export class TCPHttpServer {
     console.log(`started server on port ${this.port}`);
   }
 
+  handleRequest(request: HttpRequest) {
+    return handleRequest(request);
+  }
+
   private onData(socket: Socket, data: string | Buffer<ArrayBuffer>) {
     const requestAsString = Buffer.from(data).toString();
     const request = HttpRequest.parse(requestAsString);
     console.log(request);
-    const response = handleRequest(request);
+    const response = this.onRequest(request);
     socket.write(response.toString());
     socket.end();
   }

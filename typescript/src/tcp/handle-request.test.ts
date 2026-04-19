@@ -1,6 +1,6 @@
 import { handleRequest } from './handle-request';
-import { HttpRequest, HttpRequestMessage } from './HttpRequest';
 import { HttpResponse } from './HttpResponse';
+import { createRequest } from './http-request-fixture';
 
 describe('handleRequest', () => {
   it('handles GET', () => {
@@ -15,16 +15,3 @@ describe('handleRequest', () => {
     expect(response).toEqual(HttpResponse.success().withTextBody('Hello Kody'));
   });
 });
-
-const defaultMessage = {
-  headers: {},
-  httpVersion: '',
-  messageAsString: '',
-  method: 'GET',
-  rawBody: '',
-  uri: ''
-};
-
-function createRequest(message: Partial<HttpRequestMessage> = {}) {
-  return new HttpRequest({ ...defaultMessage, ...message });
-}
