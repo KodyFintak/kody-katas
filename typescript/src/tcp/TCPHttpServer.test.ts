@@ -1,4 +1,3 @@
-import { TCPHttpServer } from './TCPHttpServer';
 import { createRequest } from './http-request-fixture';
 import { HttpResponse } from './HttpResponse';
 import { handleRequest } from './handle-request';
@@ -18,6 +17,17 @@ describe('TCPHttpServer', () => {
     const server = createTestServer(handleRequest);
     const socket = new SpySocket();
     server.onData(socket as unknown as Socket, messageAsString);
+    expect(socket.isAlive).toEqual(false);
+    expect(socket.writtenData).toEqual(HttpResponse.success().withTextBody('Hello ').toString());
+  });
+
+  it('handles incomplete message', () => {
+    const bufferedMessage1 = "POST / HTTP/1.1\r\nHost: localhost:3000'";
+    const bufferedMessage2 = '\r\nConnection: keep-alive\r\n\r\n';
+    const server = createTestServer(handleRequest);
+    const socket = new SpySocket();
+    server.onData(socket as unknown as Socket, bufferedMessage1);
+    server.onData(socket as unknown as Socket, bufferedMessage2);
     expect(socket.isAlive).toEqual(false);
     expect(socket.writtenData).toEqual(HttpResponse.success().withTextBody('Hello ').toString());
   });
