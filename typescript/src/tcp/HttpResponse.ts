@@ -20,22 +20,20 @@ export class HttpResponse {
   }
 
   withTextBody(body: string) {
-    return new HttpResponse({ ...this.message, body })
-      .withHeader('content-type', 'text/plain')
-      .withHeader('content-length', Buffer.byteLength(body).toString());
+    return this.withBody(body, 'text/plain');
   }
 
-  withHtmlBody(body: string) {
+  private withBody(body: string, contentType: string) {
     return new HttpResponse({ ...this.message, body })
-      .withHeader('content-type', 'text/html; charset=utf-8')
+      .withHeader('content-type', contentType)
       .withHeader('content-length', Buffer.byteLength(body).toString());
+  }
+  withHtmlBody(body: string) {
+    return this.withBody(body, 'text/html; charset=utf-8');
   }
 
   withJsonBody(body: any) {
-    const bodyAsString = JSON.stringify(body);
-    return new HttpResponse({ ...this.message, body: bodyAsString })
-      .withHeader('content-type', 'application/json')
-      .withHeader('content-length', Buffer.byteLength(bodyAsString).toString());
+    return this.withBody(JSON.stringify(body), 'application/json');
   }
 
   withDate(date: Date) {
