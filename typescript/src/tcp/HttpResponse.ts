@@ -25,6 +25,12 @@ export class HttpResponse {
       .withHeader('content-length', Buffer.byteLength(body).toString());
   }
 
+  withHtmlBody(body: string) {
+    return new HttpResponse({ ...this.message, body })
+      .withHeader('content-type', 'text/html; charset=utf-8')
+      .withHeader('content-length', Buffer.byteLength(body).toString());
+  }
+
   withJsonBody(body: any) {
     const bodyAsString = JSON.stringify(body);
     return new HttpResponse({ ...this.message, body: bodyAsString })

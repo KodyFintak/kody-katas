@@ -48,6 +48,15 @@ describe('HttpResponse', () => {
     );
   });
 
+  it('creates HttpResponse with html body', () => {
+    const response = HttpResponse.success()
+      .withDate(new Date('2025-01-01T00:00:00Z'))
+      .withHtmlBody('<html><body><p>Hello</p></body></html>');
+    expect(response.toString()).toEqual(
+      'HTTP/1.1 200\r\ndate: Wed, 01 Jan 2025 00:00:00 GMT\r\nconnection: close\r\ncontent-type: text/html; charset=utf-8\r\ncontent-length: 38\r\n\r\n<html><body><p>Hello</p></body></html>'
+    );
+  });
+
   it('creates HttpResponse with 1.2 version', () => {
     const response = new HttpResponse({ httpVersion: 1.2, status: 200, headers: {} });
     expect(response.statusLine()).toEqual('HTTP/1.2 200');
