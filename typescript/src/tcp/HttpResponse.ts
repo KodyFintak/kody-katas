@@ -28,6 +28,7 @@ export class HttpResponse {
       .withHeader('content-type', contentType)
       .withHeader('content-length', Buffer.byteLength(body).toString());
   }
+
   withHtmlBody(body: string) {
     return this.withBody(body, 'text/html; charset=utf-8');
   }
