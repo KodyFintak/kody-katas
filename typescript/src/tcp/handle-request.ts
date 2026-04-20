@@ -1,5 +1,7 @@
 import { HttpRequest } from './HttpRequest';
 import { HttpResponse } from './HttpResponse';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 
 export function handleRequest(request: HttpRequest): HttpResponse {
   if (request.uri === '/hello') return handleHelloWorldRoute(request);
@@ -11,5 +13,6 @@ export function handleRequest(request: HttpRequest): HttpResponse {
 }
 
 function handleHelloWorldRoute(request: HttpRequest): HttpResponse {
-  return HttpResponse.success().withHtmlBody(`<p>Hello World</p>`);
+  const html = readFileSync(resolve(__dirname, 'routes/hello-world.html'), 'utf-8');
+  return HttpResponse.success().withHtmlBody(html);
 }
