@@ -11,6 +11,14 @@ export class HttpResponse {
     return HttpResponse.create().withHeader('connection', 'close').withStatus(200);
   }
 
+  status() {
+    return this.message.status;
+  }
+
+  body() {
+    return this.message.body;
+  }
+
   withStatus(status: number) {
     return new HttpResponse({ ...this.message, status });
   }
